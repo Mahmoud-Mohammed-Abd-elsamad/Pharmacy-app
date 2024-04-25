@@ -12,6 +12,11 @@ class GovernorateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppStyles.primaryColor,
+        title: const Center(child: Text('Select Governorate')),
+
+      ),
       body: ListView.builder(
           itemCount: egyptGovernorates.length,
           itemBuilder: (context, index) =>
