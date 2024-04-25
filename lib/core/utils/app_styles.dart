@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:farmacy_app/utils/size_config.dart';
+import 'package:farmacy_app/core/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class AppStyles {
