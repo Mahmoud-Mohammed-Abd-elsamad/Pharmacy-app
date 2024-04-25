@@ -1,7 +1,8 @@
-import 'package:farmacy_app/features/location_screen/presentation/pages/governorate_screen.dart';
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../features/location_screen/presentation/pages/governorate_screen.dart';
 
 
 class Routes{

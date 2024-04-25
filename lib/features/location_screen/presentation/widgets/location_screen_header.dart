@@ -5,13 +5,23 @@ import '../../../../../../../congfig/routes/routes.dart';
 import '../../../../../../../core/utils/app_styles.dart';
 import 'custom_dropdown_menu_button.dart';
 
-class LocationScreenHeader extends StatelessWidget {
-  const LocationScreenHeader({
+class LocationScreenHeader extends StatefulWidget {
+   LocationScreenHeader({
     super.key,
   });
+  String? governorate;
 
   @override
+  State<LocationScreenHeader> createState() => _LocationScreenHeaderState();
+
+
+}
+
+class _LocationScreenHeaderState extends State<LocationScreenHeader> {
+  @override
   Widget build(BuildContext context) {
+
+
     return Container(
       color: AppStyles.primaryColor,
       padding: EdgeInsets.all(8),
@@ -62,8 +72,12 @@ class LocationScreenHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-               CustomDropdownMenuButton(text: 'Select Governorate', onTap: () {
-                 Navigator.pushNamed(context, Routes.governorateScreen);
+               CustomDropdownMenuButton(text: widget.governorate ??'Select Governorate', onTap: () async {
+                 widget.governorate = await Navigator.pushNamed<dynamic>(context, Routes.governorateScreen);
+                 setState(() {
+
+                 });
+                 print("${widget.governorate ??'Select Governorate'}");
                },),
               CustomDropdownMenuButton(text: 'Select City / Area', onTap: () {  },),
 

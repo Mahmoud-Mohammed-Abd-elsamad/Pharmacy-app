@@ -14,7 +14,7 @@ class LocationScreen extends StatelessWidget {
           color: Colors.red,
           child: Column(
             children: [
-              const LocationScreenHeader(),
+               LocationScreenHeader(),
               const Expanded(child: SizedBox()),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
