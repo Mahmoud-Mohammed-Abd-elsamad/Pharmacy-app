@@ -1,4 +1,5 @@
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
+import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class Routes{
   static const String splashScreen = "/";
   static const String locationScreen = "primaryScreen";
   static const String governorateScreen = "governorateScreen";
+  static const String homeScreen = "homeScreen";
 
 
 }
@@ -20,7 +22,7 @@ class AppRouts{
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (context){
-          return  const LocationScreen();
+          return  const SplashScreen();
         });
 
       case Routes.locationScreen:
@@ -32,6 +34,9 @@ class AppRouts{
         return MaterialPageRoute(builder: (context){
           return  const GovernorateScreen();
         });
+
+
+
       default:
         return MaterialPageRoute(builder: (context) {
           return unDefindScreen();
