@@ -35,7 +35,10 @@ class AppRouts{
           return  const GovernorateScreen();
         });
 
-
+      case Routes.homeScreen:
+        return MaterialPageRoute(builder: (context){
+          return  const Home();
+        });
 
       default:
         return MaterialPageRoute(builder: (context) {
