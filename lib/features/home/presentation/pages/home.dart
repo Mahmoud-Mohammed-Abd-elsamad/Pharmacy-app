@@ -1,3 +1,4 @@
+import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/features/home/presentation/pages/cart_screen.dart';
 import 'package:farmacy_app/features/home/presentation/pages/home_screen.dart';
 import 'package:farmacy_app/features/home/presentation/pages/more_screen.dart';
@@ -22,6 +23,10 @@ class _HomeScreenState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppStyles.primaryColor,
+        title:  Center(child:Text("pharmacy Name",style: AppStyles.medium16(context).copyWith(color: Colors.white),)),
+      ),
         body: screens[curentIndex],
         bottomNavigationBar: _buildBottomNavigationBar(),
         );
