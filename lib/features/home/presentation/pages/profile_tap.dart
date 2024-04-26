@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class MoreScreen extends StatelessWidget {
-  const MoreScreen({super.key});
+class MoreTap extends StatelessWidget {
+  const MoreTap({super.key});
 
   @override
   Widget build(BuildContext context) {

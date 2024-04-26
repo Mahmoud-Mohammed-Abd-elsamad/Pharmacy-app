@@ -3,7 +3,7 @@ import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_scr
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/home/presentation/pages/home.dart';
+import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/location_screen/presentation/pages/governorate_screen.dart';
 
 
@@ -38,7 +38,7 @@ class AppRouts{
 
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context){
-          return  const Home();
+          return  const HomeScreen();
         });
 
       default:

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+class CartTap extends StatelessWidget {
+  const CartTap({super.key});
 
   @override
   Widget build(BuildContext context) {
