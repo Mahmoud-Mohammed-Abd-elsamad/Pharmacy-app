@@ -17,22 +17,24 @@ class CustomPannerPageView extends StatefulWidget {
 }
 
 class CustomPannerPageViewState extends State<CustomPannerPageView> {
-  PageController pageController = PageController();
+  late PageController pageController ;
   int currentIndex = 0;
 
 
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
     Timer.periodic(Duration(seconds: 2), (Timer timer) {
       if (currentIndex < 2) {
-        print("current index $currentIndex");
         currentIndex++;
-        pageController.animateToPage(
-          currentIndex,
-          duration: Duration(milliseconds: 100),
-          curve: Curves.easeIn,
-        );
+       if(pageController.hasClients){
+         pageController.animateToPage(
+           currentIndex,
+           duration: Duration(milliseconds: 100),
+           curve: Curves.easeIn,
+         );
+       }
       } else {
         currentIndex = -1;
       }

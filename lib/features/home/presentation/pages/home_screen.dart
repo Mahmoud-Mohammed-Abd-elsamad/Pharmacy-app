@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List screens = [
-    const HomeTap(),
+     HomeTap(),
     const CartTap(),
     const MoreTap(),
   ];
