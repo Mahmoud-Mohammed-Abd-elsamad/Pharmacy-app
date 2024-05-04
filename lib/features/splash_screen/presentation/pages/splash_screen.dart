@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../congfig/routes/routes.dart';
 import '../../../../core/utils/app_styles.dart';
-import '../widgets/custom_button.dart';
+import '../../../../core/utils/widgets/custom_button.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

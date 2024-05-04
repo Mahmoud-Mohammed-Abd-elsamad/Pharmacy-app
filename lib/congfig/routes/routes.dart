@@ -11,10 +11,12 @@ import '../../features/location_screen/presentation/pages/governorate_screen.dar
 class Routes{
 
   static const String splashScreen = "/";
-  static const String locationScreen = "primaryScreen";
+  static const String locationScreen = "locationScreen";
+  static const String loginScreen = "loginScreen";
+  static const String registerScreen = "registerScreen";
+
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
-  static const String loginScreen = "loginScreen";
 
 
 }
@@ -39,7 +41,7 @@ class AppRouts{
         });
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (context){
-          return  const LoginScreen();
+          return   LoginScreen();
         });
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context){

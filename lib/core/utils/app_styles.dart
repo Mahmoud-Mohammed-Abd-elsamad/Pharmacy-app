@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 abstract class AppStyles {
 
   static const Color primaryColor = Color(0xff80B2CA);
+  static const Color secondaryColor = Color(0xff407CE2);
 
   static TextStyle medium16(BuildContext context) {
     return TextStyle(
