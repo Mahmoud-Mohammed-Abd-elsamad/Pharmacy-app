@@ -27,13 +27,14 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
+          const SizedBox(height: 60,),
           Text(
             "Select Branch",
-            style: AppStyles.medium17(context).copyWith(color: Colors.white),
+            style: AppStyles.bold17(context).copyWith(color: Colors.white),
           ),
           Text(
             "For better service, please select the nearest branch",
-            style: AppStyles.regular14(context).copyWith(color: Colors.white),
+            style: AppStyles.medium17(context).copyWith(color: Colors.white),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -53,7 +54,7 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
                       ),
                       Text(
                         "Select Location",
-                        style: AppStyles.regular12(context)
+                        style: AppStyles.medium16(context)
                             .copyWith(color: Colors.white),
                       )
                     ],
@@ -64,7 +65,7 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
           ),
           Text(
             "OR",
-            style: AppStyles.regular12(context).copyWith(color: Colors.white),
+            style: AppStyles.medium17(context).copyWith(color: Colors.white),
           ),
           SizedBox(
             height: 8,

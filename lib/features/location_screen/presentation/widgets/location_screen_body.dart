@@ -25,14 +25,16 @@ class LocationScreenBody extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(height: 8,),
                   Container(
+                    height: 35,
                     decoration: BoxDecoration(
                         color: Color(0xff618a9d),
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Center(
                         child: Text(
                       "delver to (Giza)",
-                      style: AppStyles.regular16(context)
+                      style: AppStyles.medium17(context)
                           .copyWith(color: Colors.white),
                     )),
                   ),

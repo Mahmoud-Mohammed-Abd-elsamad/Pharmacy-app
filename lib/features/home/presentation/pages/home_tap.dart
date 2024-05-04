@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../../../core/utils/widgets/custom_app_bar.dart';
 import '../../../../core/utils/widgets/custom_background_container.dart';
 import '../widgets/custome_grid_view.dart';
 import '../widgets/home_tap_body.dart';
@@ -58,6 +59,10 @@ class _HomeTapState extends State<HomeTap> {
     print("selectedCategory $selectedCategory  >>");
     return selectedCategory ? SelectedCategoryContent() : CustomScrollView(
       slivers: [
+
+        SliverToBoxAdapter(
+          child: CustomAppBar(title: 'Pharmacy Name', backgroundColor: AppStyles.primaryColor,),
+        ),
         SliverToBoxAdapter(
           child: CustomPannerPageView(),
         ),

@@ -35,10 +35,9 @@ class HomeTapBody extends StatelessWidget
                 style:
                 AppStyles.medium17(context).copyWith(color: Colors.black),
               ),
-              const SizedBox(height: 8,),
 
               SizedBox(
-                  height: 1200, // Adjust the height as needed
+                  height: 1600, // Adjust the height as needed
                   child: CustomeGridView(
                       items: items, medicineCategories: medicineCategories, onTap:onTap,)
               ),

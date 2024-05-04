@@ -31,7 +31,7 @@ class CustomDropdownMenuButton extends StatelessWidget {
           ),
           Text(
             text,
-            style: AppStyles.regular12(context)
+            style: AppStyles.medium17(context)
                 .copyWith(color: Colors.white),
           )
         ],

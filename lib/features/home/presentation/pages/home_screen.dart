@@ -5,6 +5,8 @@ import 'package:farmacy_app/features/home/presentation/pages/profile_tap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/widgets/custom_app_bar.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -23,10 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppStyles.primaryColor,
-        title:  Center(child:Text("pharmacy Name",style: AppStyles.medium16(context).copyWith(color: Colors.white),)),
-      ),
+
         body: screens[currentIndex],
         bottomNavigationBar: _buildBottomNavigationBar(),
         );
@@ -63,3 +62,4 @@ class _HomeScreenState extends State<HomeScreen> {
         );
   }
 }
+
