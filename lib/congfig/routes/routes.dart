@@ -1,4 +1,5 @@
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
+import 'package:farmacy_app/features/login_screen/presentation/pages/login_screen.dart';
 import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class Routes{
   static const String locationScreen = "primaryScreen";
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
+  static const String loginScreen = "loginScreen";
 
 
 }
@@ -35,7 +37,10 @@ class AppRouts{
         return MaterialPageRoute(builder: (context){
           return  const GovernorateScreen();
         });
-
+      case Routes.loginScreen:
+        return MaterialPageRoute(builder: (context){
+          return  const LoginScreen();
+        });
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context){
           return  const HomeScreen();
