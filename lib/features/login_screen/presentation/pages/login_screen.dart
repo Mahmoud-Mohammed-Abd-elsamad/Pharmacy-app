@@ -56,14 +56,14 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 32,),
             Center(child: CustomButton(onPressed: (){}, text: "Login",height: 48,width: 320,backColor: AppStyles.secondaryColor,)),
             const SizedBox(height: 24,),
-            Center(
+           Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Don’t have an account? ",style: AppStyles.regular14(context),),
                   InkWell(
                       onTap: (){
-                        Navigator.pushNamed(context, Routes.registerScreen);
+                        Navigator.pushNamedAndRemoveUntil(context, Routes.registerScreen, (route) => false);
                       },
                       child: Text("Signup",style: AppStyles.regular14(context).copyWith(color: AppStyles.secondaryColor),)),
                 ],
