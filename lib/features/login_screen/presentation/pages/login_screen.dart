@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/widgets/custom_text_field.dart';
+import '../../../../core/utils/widgets/custom_title.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
