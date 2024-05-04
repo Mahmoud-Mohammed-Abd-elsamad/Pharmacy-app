@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
               fillColor: Color(0xffF6F2F2),
               filled: true,
-              hintText: "email",
+              hintText: text,
               border: InputBorder.none,
               hintStyle: TextStyle(color: Colors.grey),
               enabledBorder: OutlineInputBorder(
