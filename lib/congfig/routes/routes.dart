@@ -1,3 +1,4 @@
+import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provider/register_provider.dart';
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/pages/forget_password_screen.dart';
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
@@ -5,7 +6,9 @@ import 'package:farmacy_app/features/login_screen/presentation/pages/login_scree
 import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../features/RegisterScreen/data/data_sources/register_data_source.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/location_screen/presentation/pages/governorate_screen.dart';
 
@@ -47,7 +50,10 @@ class AppRouts{
         });
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (context){
-          return  const RegisterScreen();
+          return  ChangeNotifierProvider(create: (BuildContext context) {
+            return  RegisterProvider(registerDataSource: RemoteRegisterDataSource());
+          },
+          child: const RegisterScreen());
         });
       case Routes.forgetPasswordScreen:
         return MaterialPageRoute(builder: (context){

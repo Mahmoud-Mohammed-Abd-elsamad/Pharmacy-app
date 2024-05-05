@@ -1,5 +1,7 @@
+import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provider/register_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../congfig/routes/routes.dart';
 import '../../../../core/utils/app_styles.dart';
@@ -12,46 +14,127 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                child: Text("Register", style: AppStyles.bold36(context)),
+    var provider = Provider.of<RegisterProvider>(context, listen: false);
+    return Scaffold(
+      body: Form(
+        key: provider.formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  child: Text("Register", style: AppStyles.bold36(context)),
+                ),
               ),
-            ),
-            Spacer(flex: 1,),
-            const CustomTitle(title: 'user name',),
-            CustomTextField(text: 'user name', controller: TextEditingController(),),
-            const CustomTitle(title: 'email',),
-            CustomTextField(text: 'email', controller: TextEditingController(),),
-            const CustomTitle(title: 'password',),
-            CustomTextField(text: 'password', controller: TextEditingController(),),
-            const SizedBox(height: 18,),
-            const SizedBox(height: 32,),
-            Center(child: CustomButton(onPressed: (){}, text: "Register",height: 48,width: 320,backColor: AppStyles.secondaryColor,)),
-            const SizedBox(height: 24,),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Don’t have an account? ",style: AppStyles.regular14(context),),
-                  InkWell(
-                      onTap: (){
-                        Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
-                      },
-                      child: Text("login",style: AppStyles.regular14(context).copyWith(color: AppStyles.secondaryColor),)),
-                ],
+              Spacer(
+                flex: 1,
               ),
-            ),
-            const Spacer(flex: 2,),
-
-          ],
+              const CustomTitle(
+                title: 'user name',
+              ),
+              CustomTextField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter user name';
+                  }
+                  return null;
+                },
+                text: 'user name',
+                controller: provider.userNameController,
+              ),
+              const CustomTitle(
+                title: 'email',
+              ),
+              CustomTextField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email';
+                  }
+                  return null;
+                },
+                text: 'email',
+                controller: provider.emailController,
+              ),
+              const CustomTitle(
+                title: 'password',
+              ),
+              CustomTextField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  }
+                  return null;
+                },
+                text: 'password',
+                controller: provider.passController,
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              Center(
+                  child: CustomButton(
+                onPressed: () {
+                  if (provider.formKey.currentState!.validate()) {
+                    provider.registerUser();
+                    pushSnackPar(context,
+                        text: provider.registerSuccessMessage ??
+                            provider.registerFailureMessage ??
+                            " ");
+                  }
+                },
+                text: "Register",
+                height: 48,
+                width: 320,
+                backColor: AppStyles.secondaryColor,
+              )),
+              const SizedBox(
+                height: 24,
+              ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don’t have an account? ",
+                      style: AppStyles.regular14(context),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, Routes.loginScreen, (route) => false);
+                        },
+                        child: Text(
+                          "login",
+                          style: AppStyles.regular14(context)
+                              .copyWith(color: AppStyles.secondaryColor),
+                        )),
+                  ],
+                ),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> pushSnackPar(
+      BuildContext context,
+      {required String text}) {
+    var snackBar = SnackBar(
+      content: Text(text ?? " 00"),
+    );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+    return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

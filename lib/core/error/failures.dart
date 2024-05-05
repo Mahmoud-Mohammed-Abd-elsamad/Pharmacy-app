@@ -1,24 +1,24 @@
 class FailureError{
 
-  final String errorMessage;
+  final String message;
 
-  FailureError(this.errorMessage);
+  FailureError(this.message);
 
   @override
   String toString() {
     // TODO: implement toString
 
-    return errorMessage;
+    return message;
 
   }
 }
 
 class RemoteFailure extends FailureError{
-  RemoteFailure(super.errorMessage);
+  RemoteFailure(super.message);
 
 }
 
 class CashFailure extends FailureError{
-  CashFailure(super.errorMessage);
+  CashFailure(super.message);
 
 }

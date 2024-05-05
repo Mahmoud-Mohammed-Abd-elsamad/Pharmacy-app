@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    super.key, required this.text, required this.controller,
+    super.key, required this.text, required this.controller, this.validator,
   });
   final String text;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 335/48,
-      child: TextField(
-          controller: TextEditingController(),
+      child: TextFormField(
+        validator:validator ,
+          controller: controller,
           decoration: InputDecoration(
               fillColor: Color(0xffF6F2F2),
               filled: true,
