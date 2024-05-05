@@ -1,4 +1,5 @@
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
+import 'package:farmacy_app/features/forget_password_screen/presentation/pages/forget_password_screen.dart';
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
 import 'package:farmacy_app/features/login_screen/presentation/pages/login_screen.dart';
 import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_screen.dart';
@@ -15,6 +16,7 @@ class Routes{
   static const String locationScreen = "locationScreen";
   static const String loginScreen = "loginScreen";
   static const String registerScreen = "registerScreen";
+  static const String forgetPasswordScreen = "forgetPasswordScreen";
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
 
@@ -47,6 +49,11 @@ class AppRouts{
         return MaterialPageRoute(builder: (context){
           return  const RegisterScreen();
         });
+      case Routes.forgetPasswordScreen:
+        return MaterialPageRoute(builder: (context){
+          return  const ForgetPasswordScreen();
+        });
+
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context){
           return  const HomeScreen();
