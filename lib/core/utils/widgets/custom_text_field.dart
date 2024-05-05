@@ -29,7 +29,17 @@ class CustomTextField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
                 borderRadius: BorderRadius.circular(10),
-              ))),
+              ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+          )),
     );
   }
 }

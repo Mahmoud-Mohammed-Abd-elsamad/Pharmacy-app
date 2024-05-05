@@ -30,8 +30,10 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  registerUser()async {
+  loginUser()async {
 
+    showLoading = true;
+    notifyListeners();
     LoginDomainRepo loginDomainRepo = LoginDataRepo(loginUserDataSource: loginUserDataSource);
    var useCase = LoginUserUseCase(loginDomainRepo: loginDomainRepo);
 
@@ -41,11 +43,13 @@ class LoginProvider extends ChangeNotifier {
     var result = await useCase.call(LoginBody(email: emailController.value.text, password: passController.value.text));
 
     result.fold((l) {
+      showLoading = false;
       loginSuccess = false;
       loginFailureMessage = l.message;
       notifyListeners();
 
     }, (r) {
+      showLoading = false;
       loginSuccess = true;
       loginSuccessMessage = r.fullName;
       notifyListeners();

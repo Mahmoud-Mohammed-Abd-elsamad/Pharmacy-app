@@ -25,11 +25,14 @@ class RemoteLoginUserDataSource extends LoginUserDataSource {
     );
     if (response.statusCode == 200) {
 
+      print("data ${response.statusCode.toString()}");
       LoginModel loginModel = LoginModel.fromJson(response.data);
       log(loginModel.toString());
 
       return Right(loginModel);
     } else {
+      print("data ${response.statusCode.toString()}>>>>");
+
       return Left(FailureError(response.statusCode.toString()));
     }
   }
