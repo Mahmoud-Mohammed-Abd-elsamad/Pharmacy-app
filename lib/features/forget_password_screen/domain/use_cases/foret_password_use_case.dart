@@ -10,7 +10,7 @@ class ForgetPasswordUseCase {
 
   ForgetPasswordDomainRepo forgetPasswordDomainRepo;
 
-  Future<Either<FailureError, ForgetPasswordModel>> forgetPassword()  {
-    return forgetPasswordDomainRepo.forgetPassword();
+  Future<Either<FailureError, ForgetPasswordModel>> forgetPassword(String email)  {
+    return forgetPasswordDomainRepo.forgetPassword(email);
   }
 }
