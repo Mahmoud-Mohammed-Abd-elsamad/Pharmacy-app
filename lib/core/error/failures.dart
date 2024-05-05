@@ -7,6 +7,7 @@ class FailureError{
   @override
   String toString() {
     // TODO: implement toString
+
     return errorMessage;
 
   }
