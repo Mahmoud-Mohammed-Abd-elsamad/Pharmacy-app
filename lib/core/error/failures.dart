@@ -8,6 +8,7 @@ class FailureError{
   String toString() {
     // TODO: implement toString
     return errorMessage;
+
   }
 }
 
