@@ -31,7 +31,7 @@ class SelectedCategoryContent extends StatelessWidget {
     return Column(
       children:[
 
-        const CustomAppBar(title: 'Selected Category Name', backgroundColor: Colors.black,),
+        const CustomAppBarA(title: 'Selected Category Name', backgroundColor: Colors.black,),
 
         Expanded(
           child: Container(

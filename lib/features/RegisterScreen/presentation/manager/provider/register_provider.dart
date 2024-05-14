@@ -24,7 +24,6 @@ class RegisterProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  var obscureText = true;
   var confirmPassword = false;
   var flutterPwValidator = false;
   var showLoading = false;
@@ -32,9 +31,14 @@ class RegisterProvider extends ChangeNotifier {
   String? registerSuccessMessage;
   String? registerFailureMessage = "failure";
 
+
   bool _isObscure = true;
+
   bool get isObscure => _isObscure;
+
   void changeObscure() {
+    print("login clced icon");
+    log("login clced icon");
     _isObscure = !_isObscure;
     notifyListeners();
   }

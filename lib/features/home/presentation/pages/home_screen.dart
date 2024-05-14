@@ -1,9 +1,11 @@
 import 'package:farmacy_app/core/utils/app_styles.dart';
+import 'package:farmacy_app/core/utils/assets.dart';
 import 'package:farmacy_app/features/home/presentation/pages/cart_tap.dart';
 import 'package:farmacy_app/features/home/presentation/pages/home_tap.dart';
 import 'package:farmacy_app/features/home/presentation/pages/profile_tap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/utils/widgets/custom_app_bar.dart';
 
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      appBar: CustomAppBar(onPressed: () {  },),
         body: screens[currentIndex],
         bottomNavigationBar: _buildBottomNavigationBar(),
         );
@@ -62,4 +65,5 @@ class _HomeScreenState extends State<HomeScreen> {
         );
   }
 }
+
 

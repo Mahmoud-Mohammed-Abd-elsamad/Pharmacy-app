@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:farmacy_app/core/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 abstract class AppStyles {
 
   static const Color primaryColor = Color(0xff80B2CA);
-  static const Color secondaryColor = Color(0xff407CE2);
+  static const Color secondaryColor = Color(0xff45A2CF);
 
   static TextStyle medium16(BuildContext context) {
     return TextStyle(
@@ -22,6 +23,15 @@ abstract class AppStyles {
       color: const Color(0xFF000000),
       fontSize: getResponsiveFontSize(context, fontSize: 17),
       fontFamily: 'Inter',
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle regular20(BuildContext context) {
+    return TextStyle(
+      color:  Colors.white,
+      fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontFamily: 'Pacifico',
       fontWeight: FontWeight.w400,
     );
   }

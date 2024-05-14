@@ -60,9 +60,9 @@ class _HomeTapState extends State<HomeTap> {
     return selectedCategory ? SelectedCategoryContent() : CustomScrollView(
       slivers: [
 
-        SliverToBoxAdapter(
-          child: CustomAppBar(title: 'Pharmacy Name', backgroundColor: AppStyles.primaryColor,),
-        ),
+        // SliverToBoxAdapter(
+        //   child: CustomAppBarA(title: 'Pharmacy Name', backgroundColor: AppStyles.primaryColor,),
+        // ),
         SliverToBoxAdapter(
           child: CustomPannerPageView(),
         ),

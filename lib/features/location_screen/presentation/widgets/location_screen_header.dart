@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../../../../../congfig/routes/routes.dart';
 import '../../../../../../../core/utils/app_styles.dart';
 import 'custom_dropdown_menu_button.dart';
@@ -52,10 +53,17 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
                       SizedBox(
                         width: 8,
                       ),
-                      Text(
-                        "Select Location",
-                        style: AppStyles.medium16(context)
-                            .copyWith(color: Colors.white),
+                      InkWell(
+                        onTap: (){
+                          // Geolocator.requestPermission();
+                          // Geolocator.getCurrentPosition();
+                          MapUtils.openMap(30, 31);
+                        },
+                        child: Text(
+                          "Select Location",
+                          style: AppStyles.medium16(context)
+                              .copyWith(color: Colors.white),
+                        ),
                       )
                     ],
                   ),
@@ -91,3 +99,17 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
   }
 }
 
+// if we need to use lat long we use the first function
+class MapUtils {
+  MapUtils._();
+
+  static Future<void> openMap(double latitude, double longitude) async {
+    String googleUrl =
+        'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude';
+    if (await canLaunchUrl(Uri.parse(googleUrl))) {
+      await launchUrl(Uri.parse(googleUrl));
+    } else {
+      throw 'Could not open the map.';
+    }
+  }
+}

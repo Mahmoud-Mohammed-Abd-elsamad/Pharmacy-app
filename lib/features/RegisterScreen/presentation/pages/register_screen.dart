@@ -23,6 +23,8 @@ class RegisterScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 45,),
+
               Center(
                 child: Container(
                   child: Text("Register", style: AppStyles.bold36(context)),
@@ -44,6 +46,8 @@ class RegisterScreen extends StatelessWidget {
                 text: 'user name',
                 controller: provider.userNameController,
               ),
+              SizedBox(height: 16,),
+
               const CustomTitle(
                 title: 'email',
               ),
@@ -57,16 +61,22 @@ class RegisterScreen extends StatelessWidget {
                 text: 'email',
                 controller: provider.emailController,
               ),
+              SizedBox(height: 16,),
               const CustomTitle(
                 title: 'password',
               ),
               CustomTextField(
+                suffixIcon: const Icon(CupertinoIcons.eye_slash),
+                onPressedIcon: () {
+                  provider.changeObscure();
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter password';
                   }
                   return null;
                 },
+                obscureText: context.watch<RegisterProvider>().isObscure,
                 text: 'password',
                 controller: provider.passController,
               ),
@@ -101,7 +111,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Don’t have an account? ",
-                      style: AppStyles.regular14(context),
+                      style: AppStyles.bold16(context),
                     ),
                     InkWell(
                         onTap: () {
@@ -110,14 +120,14 @@ class RegisterScreen extends StatelessWidget {
                         },
                         child: Text(
                           "login",
-                          style: AppStyles.regular14(context)
+                          style: AppStyles.bold16(context)
                               .copyWith(color: AppStyles.secondaryColor),
                         )),
                   ],
                 ),
               ),
               const Spacer(
-                flex: 2,
+                flex: 3,
               ),
             ],
           ),
@@ -132,9 +142,6 @@ class RegisterScreen extends StatelessWidget {
     var snackBar = SnackBar(
       content: Text(text ?? " 00"),
     );
-
-// Find the ScaffoldMessenger in the widget tree
-// and use it to show a SnackBar.
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

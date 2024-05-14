@@ -11,7 +11,7 @@ class MoreTap extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        CustomAppBar(title: 'Profilre Name', backgroundColor: AppStyles.primaryColor,),
+        CustomAppBarA(title: 'Profilre Name', backgroundColor: AppStyles.primaryColor,),
         Center(child: Text("profile Tap")),
       ],
     );;

@@ -36,8 +36,12 @@ class SplashScreen extends StatelessWidget {
                 width: 32,
               )),
               CustomButton(
+                width: 311,
+                height: 48,
+                backColor:AppStyles.secondaryColor,
+
                 onPressed: () {},
-                text: 'Doctor',
+                text: 'Admin',
               ),
               const Flexible(
                   child: SizedBox(
@@ -54,10 +58,13 @@ class SplashScreen extends StatelessWidget {
                     width: 32,
                   )),
               CustomButton(
+                width: 311,
+                height: 48,
+                backColor:AppStyles.secondaryColor,
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.locationScreen);
                 },
-                text: 'Patient',
+                text: 'User',
               ),
               const Flexible(
                   child: SizedBox(

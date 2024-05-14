@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/widgets/custom_button.dart';
+import '../manager/provider.dart';
 
 class ForgetPasswordVerificationWidget extends StatefulWidget {
-  ForgetPasswordVerificationWidget({super.key, this.ontTape});
+  const ForgetPasswordVerificationWidget({super.key});
 
-  final void Function()? ontTape;
+
   @override
   State<ForgetPasswordVerificationWidget> createState() =>
       _ForgetPasswordVerificationWidgetState();
@@ -21,50 +23,60 @@ class _ForgetPasswordVerificationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 32,
-        ),
-        Center(
-            child: Text("Verification Code",
-                style: AppStyles.extraBold24(context)
-                    .copyWith(color: const Color(0xff455A64)))),
-        const SizedBox(
-          height: 28,
-        ),
-        Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Enter code that we have sent yo your email",
-                  style: AppStyles.regular14(context)),
-              Text("example@gmail.com", style: AppStyles.regular14(context)),
-            ],
+    var provider  = Provider.of<ForgetPasswordProvider>(context, listen: true);
+    return Form(
+      key: provider.verificationPasswordFormKey,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 100,
           ),
-        ),
-        const SizedBox(
-          height: 32,
-        ),
-        _generateTextFormField(),
-        const SizedBox(
-          height: 70,
-        ),
-        CustomButton(
-          onPressed:widget.ontTape,
-          text: "Submit",
-          textColor: const Color(0XFF757575),
-          height: 48,
-          width: 320,
-          backColor: Colors.grey,
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Text("Resend code",
-            style: AppStyles.semiBold16(context)
-                .copyWith(color: Color(0xff45A2CF))),
-      ],
+          Center(
+              child: Text("Verification Code",
+                  style: AppStyles.bold32(context)
+                      .copyWith(color: const Color(0xff455A64)))),
+          const SizedBox(
+            height: 28,
+          ),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Enter code that we have sent yo your email",
+                    style: AppStyles.regular14(context)),
+                Text("example@gmail.com", style: AppStyles.regular14(context)),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          _generateTextFormField(),
+          const SizedBox(
+            height: 70,
+          ),
+          CustomButton(
+            onPressed:(){
+              provider.otpVerification();
+
+              // isVerificationCode = false;
+              // isResetPassword = true;
+
+            },
+            text: "Submit",
+            textColor: const Color(0XFF757575),
+            height: 48,
+            width: 320,
+            backColor: Colors.grey,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text("Resend code",
+              style: AppStyles.semiBold16(context)
+                  .copyWith(color: Color(0xff45A2CF))),
+        ],
+      ),
     );
   }
 
@@ -88,12 +100,20 @@ class _ForgetPasswordVerificationWidgetState
   Widget _textFormField(int index) {
     return Center(
       child: SizedBox(
-        height: 50,
-        width: 70,
+        height: 70,
+        width: 50,
         child: TextFormField(
+          validator: (value) {
+            if(value!.isEmpty) {
+              return "Please enter a valid code";
+            }else{
+              return null;
+            }
+
+          },
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          controller: otpController[index],
+          controller: Provider.of<ForgetPasswordProvider>(context).otpControllerList[index],
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(1),
@@ -106,6 +126,18 @@ class _ForgetPasswordVerificationWidgetState
               ),
             ),
             focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: Colors.blueAccent,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: Colors.blueAccent,
+              ),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
                 color: Colors.blueAccent,
