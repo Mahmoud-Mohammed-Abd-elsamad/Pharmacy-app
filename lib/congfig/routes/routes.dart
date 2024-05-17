@@ -2,6 +2,9 @@ import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provide
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/manager/provider.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/pages/forget_password_screen.dart';
+import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
+import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
+import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
 import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
 import 'package:farmacy_app/features/login_screen/presentation/pages/login_screen.dart';
@@ -72,7 +75,12 @@ class AppRouts {
 
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) {
-          return const HomeScreen();
+          return MultiProvider(providers: [
+            ChangeNotifierProvider (create: (BuildContext context) {
+              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource());
+            },),
+          ],
+          child: const HomeScreen());
         });
 
       default:

@@ -18,7 +18,7 @@ class LocationScreenBody extends StatelessWidget {
     return findBranches
         ? InkWell(
             onTap: () {
-              Navigator.pushNamed(context, Routes.homeScreen);
+              Navigator.pushNamed(context, Routes.homeScreen,);
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),

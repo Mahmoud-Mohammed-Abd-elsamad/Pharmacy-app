@@ -47,6 +47,7 @@ class _HomeTapState extends State<HomeTap> {
   ];
 
   bool  selectedCategory = false;
+  String catId = "";
 
   void Function()? onTap(){
     setState(() {
@@ -57,12 +58,8 @@ class _HomeTapState extends State<HomeTap> {
   @override
   Widget build(BuildContext context) {
     print("selectedCategory $selectedCategory  >>");
-    return selectedCategory ? SelectedCategoryContent() : CustomScrollView(
+    return selectedCategory ? SelectedCategoryContent(catId: "2",) : CustomScrollView(
       slivers: [
-
-        // SliverToBoxAdapter(
-        //   child: CustomAppBarA(title: 'Pharmacy Name', backgroundColor: AppStyles.primaryColor,),
-        // ),
         SliverToBoxAdapter(
           child: CustomPannerPageView(),
         ),

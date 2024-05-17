@@ -4,4 +4,6 @@ class EndPoints{
   static const String login = "/users/authenticate";
   static const String forgetPassword = "/users/forgot-password";
   static const String resetPassword = "/users/reset-password";
+  static const String getAllCategories = "/api/categories";
+  static const String getMedicinesByCategoryId = "/api/Medicines/GetByCategory/";
 }
