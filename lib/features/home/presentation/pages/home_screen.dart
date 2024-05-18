@@ -31,8 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<HomeProvider>(context, listen: false).getAllCategories();
-
+    if(currentIndex == 0) {
+      Provider.of<HomeProvider>(context, listen: false).getAllCategories();
+    }
     return Scaffold(
       appBar: CustomAppBar(
         onPressed: () {},

@@ -6,4 +6,8 @@ class EndPoints{
   static const String resetPassword = "/users/reset-password";
   static const String getAllCategories = "/api/categories";
   static const String getMedicinesByCategoryId = "/api/Medicines/GetByCategory/";
+  static const String addItemToCart = "/api/CartItems";
+  static const String getAllCartItems = "/api/CartItems/";
+  static const String updateCartItem = "/api/CartItems";
+  static const String deleteCartItem = "/api/CartItems/";
 }

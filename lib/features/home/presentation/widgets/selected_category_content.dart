@@ -18,14 +18,6 @@ class SelectedCategoryContent extends StatelessWidget {
   });
 
   final String catId;
-  // List<SelectedCategoryItemModel> items = [
-  //   SelectedCategoryItemModel(image: Assets.imageTestData, name: "P55anadol", price: 55),
-  //   SelectedCategoryItemModel(image: Assets.imageTestData3, name: "P55anadol", price: 23),
-  //   SelectedCategoryItemModel(image: Assets.imageTestData, name: "P55anadol", price: 55),
-  //   SelectedCategoryItemModel(image: Assets.imageTestData3, name: "P55anadol", price: 23),SelectedCategoryItemModel(image: Assets.imageTestData, name: "P55anadol", price: 55),
-  //   SelectedCategoryItemModel(image: Assets.imageTestData3, name: "P55anadol", price: 23),
-  //
-  // ];
 
   final TextEditingController emailController = TextEditingController();
 
@@ -35,7 +27,7 @@ class SelectedCategoryContent extends StatelessWidget {
       children:[
         Expanded(
           child: Container(
-          color: AppStyles.primaryColor,
+          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(

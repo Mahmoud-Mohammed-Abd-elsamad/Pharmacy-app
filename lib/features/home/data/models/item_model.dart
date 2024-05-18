@@ -1,12 +1,3 @@
-// class SelectedCategoryItemModel{
-//
-//
-//   final String image;
-//   final String name;
-//   final String price;
-//
-//   SelectedCategoryItemModel({required this.image, required this.name, required this.price});
-// }
 
 class SelectedCategoryItemModel {
   int? medicineId;
@@ -17,12 +8,12 @@ class SelectedCategoryItemModel {
   String? categoryName;
 
   SelectedCategoryItemModel(
-      {this.medicineId,
-        this.name,
-        this.description,
-        this.price,
-        this.medicineQuantity,
-        this.categoryName});
+      {  this.medicineId,
+          this.name,
+          this.description,
+          this.price,
+          this.medicineQuantity,
+          this.categoryName});
 
   SelectedCategoryItemModel.fromJson(Map<String, dynamic> json) {
     medicineId = json['medicineId'];

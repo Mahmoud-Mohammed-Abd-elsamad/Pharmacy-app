@@ -27,8 +27,7 @@ class CustomeGridView extends StatelessWidget {
       crossAxisSpacing: 4,
       itemBuilder: (context, index) {
         print("Index is $index");
-        return context.watch<HomeProvider>().getCategoriesSuccess
-            ? InkWell(
+        return  InkWell(
                 onTap: () async {
                   onTap!();
                   Future.delayed(const Duration(seconds: 2), ()async {
@@ -54,11 +53,7 @@ class CustomeGridView extends StatelessWidget {
                     ),
                   ),
                 ),
-              ):
-        Align(
-            alignment: Alignment.topCenter,
-            child: CircularProgressIndicator(color: AppStyles.secondaryColor,));
-      },
+              );},
     );
   }
 

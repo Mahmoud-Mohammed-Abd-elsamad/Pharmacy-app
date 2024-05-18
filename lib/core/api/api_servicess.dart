@@ -16,4 +16,16 @@ class ApiServices {
     return response;
   }
 
+  Future<Response> pot(
+      {required String url,
+        required Map<String, dynamic> data}) async {
+    Response response = await _dio.put(url, data: data, );
+    return response;
+  }
+
+  Future<Response> delete(
+      {required String url}) async {
+    Response response = await _dio.delete(url);
+    return response;
+  }
 }

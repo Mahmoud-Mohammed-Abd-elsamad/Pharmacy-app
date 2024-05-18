@@ -3,6 +3,7 @@ import 'package:farmacy_app/features/home/presentation/widgets/custom_panner_pag
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/utils/widgets/custom_app_bar.dart';
 import '../../../../core/utils/widgets/custom_background_container.dart';
@@ -19,6 +20,7 @@ class HomeTap extends StatefulWidget {
 }
 
 class _HomeTapState extends State<HomeTap> {
+
   final List items = [
     Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.pink,Colors.grey,Colors.green,Colors.blue,
     Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.green,Colors.yellow,Colors.green,
@@ -46,8 +48,11 @@ class _HomeTapState extends State<HomeTap> {
     "First Aid",
   ];
 
+
+
   bool  selectedCategory = false;
   String catId = "";
+
 
   void Function()? onTap(){
     setState(() {

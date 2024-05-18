@@ -33,19 +33,19 @@ class PaymentDetails extends StatelessWidget {
                         AppStyles.semiBold20(context).copyWith(color: Colors.black)),
                 SizedBox(height: 16,),
                 _buildPaymentItem(
-                    rText: '78 EGP',
+                    rText: '$subTotal EGP',
                     lText: 'subtotal',
                     style:
                         AppStyles.semiBold17(context).copyWith(color: Colors.grey.withOpacity(.8))),
                 const SizedBox(height: 8,),
                 _buildPaymentItem(
-                    rText: '15 EGP ',
+                    rText: '$deliveryFees EGP ',
                     lText: 'Delivery Fees',
                     style:
                         AppStyles.semiBold17(context).copyWith(color: Colors.grey.withOpacity(.8))),
                 Divider(height: 16,color: Colors.grey,),
                 _buildPaymentItem(
-                    rText: '93 EGP',
+                    rText: '$total EGP',
                     lText: 'Total',
                     style:
                     AppStyles.semiBold17(context).copyWith(color: Colors.black)),

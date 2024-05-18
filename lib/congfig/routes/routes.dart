@@ -2,6 +2,7 @@ import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provide
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/manager/provider.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/pages/forget_password_screen.dart';
+import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
@@ -77,7 +78,7 @@ class AppRouts {
         return MaterialPageRoute(builder: (context) {
           return MultiProvider(providers: [
             ChangeNotifierProvider (create: (BuildContext context) {
-              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource());
+              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
             },),
           ],
           child: const HomeScreen());
