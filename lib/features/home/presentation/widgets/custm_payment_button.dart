@@ -32,6 +32,7 @@ class CustomPaymentButton extends StatelessWidget {
             if (provider.isPaymentSuccess) {
               log("PaymentProvider s ${provider.isPaymentSuccess} ");
               Navigator.of(context).pop();
+
               if (context.mounted) {
                 _showDialog(context);
                 var snackBar = SnackBar(
