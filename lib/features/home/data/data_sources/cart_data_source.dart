@@ -94,7 +94,7 @@ class RemoteCartDataSource extends CartDataSource {
     try {
       log("updateCartItem Data Source");
 
-      var response = await apiServices.pot(
+      var response = await apiServices.put(
         url: EndPoints.baseUrl + EndPoints.updateCartItem,
         data: updateCartItemModel.toJson(),
       );

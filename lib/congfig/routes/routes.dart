@@ -28,6 +28,7 @@ class Routes {
   static const String forgetPasswordScreen = "forgetPasswordScreen";
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
+  static const String paymentScreen = "paymentScreen";
 }
 
 class AppRouts {

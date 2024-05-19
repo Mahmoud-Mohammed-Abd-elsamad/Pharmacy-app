@@ -1,11 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:farmacy_app/congfig/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
+import 'core/utils/api_keys.dart';
 import 'core/utils/observer.dart';
 
 void main() {
   runApp(const MyApp());
+  Stripe.publishableKey = ApiKys.stripePublishableKey;
   Bloc.observer = MyBlocObserver();
 }
 
