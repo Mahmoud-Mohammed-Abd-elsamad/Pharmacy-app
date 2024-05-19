@@ -1,0 +1,9 @@
+class ApiKys{
+
+  static String secretKey  = "sk_test_51PFcEwIcnHDbaqB87AtgmciU78rYbRzKlEyWtCz0LR6xbaRzmzsSOSVQh8v1Bo9J4cCIf0L9ZhLTsFIFBKxp9Fu700uJWeH8r0";
+
+  static String stripePublishableKey = "pk_test_51PFcEwIcnHDbaqB8PEg6J3seU0cE6gboe94s8pfeYuNQSEhFBiMmn0rFW4xVPhTgS3F9j8iFxiBH5UVQNddIuncQ005Y2L1lsQ";
+  static String customerId = "cus_Q6vTxVcN61AcRC";
+
+}
+//ek_test_YWNjdF8xUEZjRXdJY25IRGJhcUI4LDJuWUxFaXBZSDMyaTVSQmJNeDBnU285TDNXTkFEMGI_00Wtppb69z
