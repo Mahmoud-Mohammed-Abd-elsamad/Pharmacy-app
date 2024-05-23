@@ -5,6 +5,7 @@ import 'package:farmacy_app/features/home/domain/repositories/catetgories_domain
 import 'package:farmacy_app/features/home/domain/repositories/medicien_domain_repo.dart';
 
 import '../../data/models/item_model.dart';
+import '../../data/models/medicine_body.dart';
 
 class MedicineUseCase{
   MedicineUseCase({required this.medicineDomainRepo});
@@ -15,4 +16,15 @@ class MedicineUseCase{
    return medicineDomainRepo.getMedicinesByCategoryId(id);
  }
 
+  Future<Either<FailureError, Map<String, dynamic>>>
+  createMedicineInSpecificCategory({required MedicineBody medicineBody}){
+
+    return medicineDomainRepo.createMedicineInSpecificCategory(medicineBody: medicineBody);
+  }
+
+  Future<Either<FailureError, Map<String, dynamic>>>
+  updateMedicineInSpecificCategory({required MedicineBody medicineBody}){
+
+    return medicineDomainRepo.updateMedicineInSpecificCategory(medicineBody: medicineBody);
+  }
 }

@@ -23,9 +23,9 @@ class LoginProvider extends ChangeNotifier {
   var confirmPassword = false;
   var flutterPwValidator = false;
   bool switchValue = false;
-
   var showLoading = false;
   var loginSuccess = false;
+  var isAdmin = false;
   String? loginSuccessMessage;
   String? loginFailureMessage = "failure";
 
@@ -62,6 +62,7 @@ class LoginProvider extends ChangeNotifier {
       loginFailureMessage = l.message;
       notifyListeners();
     }, (r) {
+      isAdmin = r.isAdmin!;
       showLoading = false;
       loginSuccess = true;
       loginSuccessMessage = r.fullName;

@@ -17,7 +17,7 @@ class HomeTapBody extends StatelessWidget {
 
   final List items;
   final List<String> medicineCategories;
-  final void Function()? onTap;
+  final void Function(int index)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +32,17 @@ class HomeTapBody extends StatelessWidget {
               SizedBox(
                 height: 8,
               ),
-              Text(
-                "Shop By Category",
-                style:
-                    AppStyles.medium17(context).copyWith(color: Colors.black),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Shop By Category",
+                  style:
+                      AppStyles.bold25(context).copyWith(color: Colors.black),
+                ),
               ),
               context.watch<HomeProvider>().getCategoriesSuccess
                   ? SizedBox(
-                      height: 1600, // Adjust the height as needed
+                      height: 650, // Adjust the height as needed
                       child: CustomeGridView(
                         items: items,
                         medicineCategories: medicineCategories,

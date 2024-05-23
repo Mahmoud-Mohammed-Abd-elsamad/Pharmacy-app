@@ -1,40 +1,36 @@
-class SelectedCategoryItemModel {
-  int? medicineId;
+class MedicineModel {
   String? name;
   String? description;
-  int? price;
-  int? medicineQuantity;
-  String? categoryName;
+  String? price;
+  String? medicineQuantity;
+  String? categoryId;
   String? photo;
 
-  SelectedCategoryItemModel(
-      {this.medicineId,
-        this.name,
+  MedicineModel(
+      {this.name,
         this.description,
         this.price,
         this.medicineQuantity,
-        this.categoryName,
+        this.categoryId,
         this.photo});
 
-  SelectedCategoryItemModel.fromJson(Map<String, dynamic> json) {
-    medicineId = json['medicineId'];
+  MedicineModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     description = json['description'];
     price = json['price'];
     medicineQuantity = json['medicineQuantity'];
-    categoryName = json['categoryName'];
-    photo = json['photo'];
+    categoryId = json['categoryId'];
+    photo = json['Photo'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['medicineId'] = this.medicineId;
     data['name'] = this.name;
     data['description'] = this.description;
     data['price'] = this.price;
     data['medicineQuantity'] = this.medicineQuantity;
-    data['categoryName'] = this.categoryName;
-    data['photo'] = this.photo;
+    data['categoryId'] = this.categoryId;
+    data['Photo'] = this.photo;
     return data;
   }
 }

@@ -10,4 +10,5 @@ abstract class Assets {
   static const String imageTestData3 = "assets/images/panadool.png";
   static const String lookImage = "assets/images/lock_image.svg";
   static const String pharmacyImage = "assets/images/pharmacy_image.png";
+  static const String wightImage = "assets/images/wight_image.png";
 }

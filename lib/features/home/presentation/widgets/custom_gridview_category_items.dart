@@ -23,42 +23,42 @@ class CustomGridViewSelectedCategoryItems extends StatefulWidget {
 
 class _CustomGridViewSelectedCategoryItemsState
     extends State<CustomGridViewSelectedCategoryItems> {
-  List<SelectedCategoryItemModel> items = [
-    SelectedCategoryItemModel(
-        medicineId: 1,
-        name: 'banadol',
-        description: 'fdfffd',
-        price: 55,
-        medicineQuantity: 2,
-        categoryName: 'lllll'),
-    SelectedCategoryItemModel(
-        medicineId: 2,
-        name: 'xxxxxx',
-        description: 'fdfffd',
-        price: 10,
-        medicineQuantity: 2,
-        categoryName: 'lllll'),
-    SelectedCategoryItemModel(
-        medicineId: 3,
-        name: 'mmmmmmmm',
-        description: 'fdfffd',
-        price: 90,
-        medicineQuantity: 4,
-        categoryName: 'lllll'),
-    SelectedCategoryItemModel(
-        medicineId: 4,
-        name: 'ooooo',
-        description: 'fdfffd',
-        price: 10,
-        medicineQuantity: 3,
-        categoryName: 'lllll'),
-  ];
+  // [
+  //   SelectedCategoryItemModel(
+  //       medicineId: 1,
+  //       name: 'banadol',
+  //       description: 'fdfffd',
+  //       price: 55,
+  //       medicineQuantity: 2,
+  //       categoryName: 'lllll'),
+  //   SelectedCategoryItemModel(
+  //       medicineId: 2,
+  //       name: 'xxxxxx',
+  //       description: 'fdfffd',
+  //       price: 10,
+  //       medicineQuantity: 2,
+  //       categoryName: 'lllll'),
+  //   SelectedCategoryItemModel(
+  //       medicineId: 3,
+  //       name: 'mmmmmmmm',
+  //       description: 'fdfffd',
+  //       price: 90,
+  //       medicineQuantity: 4,
+  //       categoryName: 'lllll'),
+  //   SelectedCategoryItemModel(
+  //       medicineId: 4,
+  //       name: 'ooooo',
+  //       description: 'fdfffd',
+  //       price: 10,
+  //       medicineQuantity: 3,
+  //       categoryName: 'lllll'),
+  // ];
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<HomeProvider>(context, listen: true);
-    // List<SelectedCategoryItemModel> items =
-    //     context.watch<HomeProvider>().medicines;
+    List<SelectedCategoryItemModel> items =
+        context.watch<HomeProvider>().medicines;
     return
         //provider.getMedicinesSuccess
         true
@@ -94,9 +94,9 @@ class _CustomGridViewSelectedCategoryItemsState
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             AspectRatio(
-                                aspectRatio: 122 / 119,
-                                child: Image.asset(
-                                  Assets.imageTestData3,
+                                aspectRatio: 122 / 110,
+                                child: Image.network(
+                                  items[index].photo.toString(),
                                   fit: BoxFit.fill,
                                 )),
                             SizedBox(
@@ -107,7 +107,7 @@ class _CustomGridViewSelectedCategoryItemsState
                               child: Row(
                                 children: [
                                   Text(
-                                    "sdfsdfsdfsdfdsfsdfsdfsdfdf",
+                                    items[index].name.toString(),
                                     style: AppStyles.bold12(context),
                                   ),
                                 ],
@@ -118,8 +118,8 @@ class _CustomGridViewSelectedCategoryItemsState
                               child: Row(
                                 children: [
                                   Text(
-                                    items[index].price.toString(),
-                                    style: AppStyles.regular12(context),
+                                    items[index].price.toString() + "LE",
+                                    style: AppStyles.regular16(context),
                                   ),
                                 ],
                               ),

@@ -112,6 +112,8 @@ class LoginScreen extends StatelessWidget {
                       await Future.delayed(const Duration(seconds: 2), () {
                         print("login success ${provider.loginSuccess}");
                         if (provider.loginSuccess) {
+                          provider.isAdmin? Navigator.pushNamedAndRemoveUntil(
+                              context, Routes.dashBoardScreen, (route) => false) :
                           Navigator.pushNamedAndRemoveUntil(
                               context, Routes.homeScreen, (route) => false);
                           SnackBarClass.pushSnackPar(context,

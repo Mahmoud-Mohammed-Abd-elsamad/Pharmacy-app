@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
-import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
-import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
+
 import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
 import 'package:farmacy_app/features/home/data/models/add_item_to_cart_model.dart';
@@ -18,8 +17,11 @@ import 'package:farmacy_app/features/home/domain/use_cases/cart_use_case.dart';
 import 'package:farmacy_app/features/home/domain/use_cases/categories_use_case.dart';
 import 'package:farmacy_app/features/home/domain/use_cases/medicine_use_case.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../data/models/add_item_to_cart_body.dart';
+import '../../../data/models/medicine_body.dart';
 import '../../../domain/repositories/cart_domain_repo.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -37,6 +39,8 @@ class HomeProvider extends ChangeNotifier {
   bool getMedicinesSuccess = false;
   bool addToCartSuccess = false;
   bool getAllCartItemsSuccess = false;
+  bool createMedicineSuccess = false;
+  bool updateMedicineSuccess = false;
   int selectedMedicineItemToAddToCart = -1;
   int totalCartPrice = 0;
   List<CategoryModel> categories = [];
@@ -45,8 +49,10 @@ class HomeProvider extends ChangeNotifier {
   List<String> allAddedItemsToCartWithCartIdList = [];
   List<AddItemToCartModel> cartItems = [];
   AddItemToCartModel? addItemToCartModel;
+  String selectedMedicineNameForDashBoard = "";
+   XFile? pickedImage;
 
-  getAllCategories() async {
+  Future getAllCategories() async {
     log("getAllCategories called ========================");
     isLoading = true;
 
@@ -70,7 +76,7 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
-  Future getMedicinesById(String id) async {
+  Future getMedicinesByCategoryId(String id) async {
     log("getMedicinesById called ========================");
 
     MedicineDomainRepo medicineDomainRepo =
@@ -84,9 +90,65 @@ class HomeProvider extends ChangeNotifier {
       getMedicinesSuccess = false;
       notifyListeners();
     }, (r) {
+      //log("lolololololoololololo  r lenth   ${r[2].name}");
       medicines = r;
       // isLoading = false;
+      log("lolololololoololololo  medicines lenth   ${medicines.length}");
       getMedicinesSuccess = true;
+      notifyListeners();
+    });
+  }
+
+  // Future createMedicineInSpecificCategory(
+  //     {required MedicineBody medicineBody}) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //
+  //   log("createMedicineInSpecificCategory called ========================");
+  //
+  //   MedicineDomainRepo medicineDomainRepo =
+  //       MedicineDataRepo(medicineDataSource);
+  //   MedicineUseCase useCase =
+  //       MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
+  //   var result = await useCase.createMedicineInSpecificCategory(
+  //       medicineBody: medicineBody);
+  //   result.fold((l) {
+  //     isLoading = false;
+  //     createMedicineSuccess = false;
+  //     log("createMedicineInSpecificCategory Failed  ========${l.message}================");
+  //
+  //     notifyListeners();
+  //   }, (r) {
+  //     log("createMedicineInSpecificCategory Success  ========${r["message"]}================");
+  //     isLoading = false;
+  //     createMedicineSuccess = true;
+  //     notifyListeners();
+  //   });
+  // }
+
+  Future updateMedicineInSpecificCategory(
+      {required MedicineBody medicineBody}) async {
+    isLoading = true;
+    notifyListeners();
+
+    log("updateMedicineInSpecificCategory called ========================");
+
+    MedicineDomainRepo medicineDomainRepo =
+    MedicineDataRepo(medicineDataSource);
+    MedicineUseCase useCase =
+    MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
+    var result = await useCase.updateMedicineInSpecificCategory(
+        medicineBody: medicineBody);
+    result.fold((l) {
+      isLoading = false;
+      updateMedicineSuccess = false;
+      log("updateMedicineInSpecificCategory Failed  ========${l.message}================");
+
+      notifyListeners();
+    }, (r) {
+      log("updateMedicineInSpecificCategory Success  ========${r["message"]}================");
+      isLoading = false;
+      updateMedicineSuccess = true;
       notifyListeners();
     });
   }
@@ -139,7 +201,7 @@ class HomeProvider extends ChangeNotifier {
       isLoading = false;
       getAllCartItemsSuccess = true;
       log("getAllCartItemsByUserId true ========================");
-      if(cartItems.isNotEmpty){
+      if (cartItems.isNotEmpty) {
         totalCartPrice = cartItems.map((e) {
           if (e.medicineId == null) return 0;
           return e.medicineId! * e.itemQuantity!;
@@ -171,5 +233,33 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
       log("deleteCartItem success ========================");
     });
+  }
+
+  Future<void> pickImageFromGallery() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
+    log("Asked for  permission");
+    // Check for storage permission
+    if (statuses[Permission.camera] != PermissionStatus.granted ||
+        statuses[Permission.storage] != PermissionStatus.granted) {
+        log('Storage permission denied');
+        return;
+      }
+
+
+    // If permission is granted, proceed to pick image
+    final ImagePicker _picker = ImagePicker();
+     pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      notifyListeners();
+      // Do something with the selected image
+      print(
+          'Image path: ${pickedImage!.path} [][][][]][][][][]][]]][][[[]][][]][[][[');
+    } else {
+      print('No image selected.');
+    }
   }
 }

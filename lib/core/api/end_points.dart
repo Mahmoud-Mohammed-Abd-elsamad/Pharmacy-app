@@ -10,4 +10,6 @@ class EndPoints{
   static const String getAllCartItems = "/api/CartItems/";
   static const String updateCartItem = "/api/CartItems";
   static const String deleteCartItem = "/api/CartItems/";
+  static const String createMedicine = "/api/Medicines/";
+  static const String updateMedicine = "/api/Medicines/";
 }

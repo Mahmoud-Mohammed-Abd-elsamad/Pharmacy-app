@@ -29,14 +29,6 @@ class RemoteRegisterDataSource extends RegisterDataSource {
         "Password": registerBody.password
       },
     );
-    // await http.post(
-    //   Uri.parse(EndPoints.baseUrl + EndPoints.register),
-    //   body: jsonEncode(<String, String>{
-    //     "Email": registerBody.email,
-    //     "FullName": registerBody.name,
-    //     "Password": registerBody.password
-    //   }),
-    // );
     log(response.statusCode.toString());
 
     print(">>>>>>>>>>>> ${response.data.toString()} ${response.statusCode}");

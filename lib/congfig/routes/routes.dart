@@ -1,5 +1,7 @@
 import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provider/register_provider.dart';
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
+import 'package:farmacy_app/features/dash_board/presentation/pages/dash_baord_categories_screen.dart';
+import 'package:farmacy_app/features/dash_board/presentation/pages/dash_baord_cmedicines_screen.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/manager/provider.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/pages/forget_password_screen.dart';
 import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
@@ -29,6 +31,7 @@ class Routes {
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
   static const String paymentScreen = "paymentScreen";
+  static const String dashBoardScreen = "dashBoardCategoriesScreen";
 }
 
 class AppRouts {
@@ -85,10 +88,23 @@ class AppRouts {
           child: const HomeScreen());
         });
 
+
+      case Routes.dashBoardScreen:
+        return MaterialPageRoute(builder: (context) {
+          return ChangeNotifierProvider(create: (BuildContext context) {
+            return HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
+          },
+          child: const DashBoardCategoriesScreen());
+        });
+
+
+
       default:
         return MaterialPageRoute(builder: (context) {
           return unDefindScreen();
         });
+
+
     }
   }
 

@@ -49,6 +49,8 @@ dependencies:
   flutter_stripe: ^10.1.1
   flutter_credit_card: ^4.0.0+1
   font_awesome_flutter: ^10.5.0
+  image_picker: ^1.0.8
+  permission_handler: ^11.3.1
 
 
 

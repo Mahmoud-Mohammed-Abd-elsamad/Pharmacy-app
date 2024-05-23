@@ -1,9 +1,9 @@
 import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/core/utils/assets.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
-import 'package:farmacy_app/features/home/presentation/pages/cart_tap.dart';
-import 'package:farmacy_app/features/home/presentation/pages/home_tap.dart';
-import 'package:farmacy_app/features/home/presentation/pages/profile_tap.dart';
+import 'package:farmacy_app/features/home/presentation/pages/taps/cart_tap.dart';
+import 'package:farmacy_app/features/home/presentation/pages/taps/home_tap.dart';
+import 'package:farmacy_app/features/home/presentation/pages/taps/profile_tap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

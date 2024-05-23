@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/utils/widgets/custom_app_bar.dart';
-import '../../../../core/utils/widgets/custom_background_container.dart';
-import '../widgets/custome_grid_view.dart';
-import '../widgets/home_tap_body.dart';
-import '../widgets/selected_category_content.dart';
+import '../../../../../core/utils/widgets/custom_app_bar.dart';
+import '../../../../../core/utils/widgets/custom_background_container.dart';
+import '../../widgets/custome_grid_view.dart';
+import '../../widgets/home_tap_body.dart';
+import '../../widgets/selected_category_content.dart';
 
 
 class HomeTap extends StatefulWidget {
@@ -22,15 +22,26 @@ class HomeTap extends StatefulWidget {
 class _HomeTapState extends State<HomeTap> {
 
   final List items = [
-    Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.pink,Colors.grey,Colors.green,Colors.blue,
-    Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.green,Colors.yellow,Colors.green,
-    Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.pink,Colors.yellow,Colors.green,
-    Colors.pink,Colors.yellow,Colors.green,Colors.blue,Colors.pink,Colors.yellow,Colors.green,
+    Color(0xffB9B9AF),
+    Color(0xffA7BAC1),
+    Color(0xffA6745D),
+    Color(0xffF8C689),
+    Color(0xffC7DCE1),
+    Color(0xff143233),
+    Color(0xffDBAD7B),
+    Color(0xffEAD6BD),
+    Color(0xff363E42),
+    Color(0xffDCD2D1),
+    Color(0xffD0D1D3),
+    Color(0xffDFCEA9),
+
+
+
 
   ];
 
   final List<String> medicineCategories = [
-    "Hair Care",
+    "Hair 2Care",
     "Skin Care",
     "Diet",
     "Pain Relief",
@@ -54,16 +65,19 @@ class _HomeTapState extends State<HomeTap> {
   String catId = "";
 
 
-  void Function()? onTap(){
+
+  void Function()? onTap(index){
     setState(() {
+      catId = index.toString();
       selectedCategory = true;
+      print("catID $catId >>>>>>>>>>>>>>>>>>>>>>>>>");
     });
   }
 
   @override
   Widget build(BuildContext context) {
     print("selectedCategory $selectedCategory  >>");
-    return selectedCategory ? SelectedCategoryContent(catId: "2",) : CustomScrollView(
+    return selectedCategory ? SelectedCategoryContent(catId: catId,) : CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: CustomPannerPageView(),
