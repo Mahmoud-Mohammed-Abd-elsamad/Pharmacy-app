@@ -5,6 +5,7 @@ import 'package:farmacy_app/features/home/domain/repositories/catetgories_domain
 import '../../../../core/error/failures.dart';
 import '../../data/models/add_item_to_cart_body.dart';
 import '../../data/models/add_item_to_cart_model.dart';
+import '../../data/models/get_all_cart_items_model.dart';
 
 class CartUseCase{
 CartUseCase({required this.cartDomainRepo});
@@ -17,7 +18,7 @@ Future<Either<FailureError, AddItemToCartModel>> addItemToCart(AddItemToCartBody
 
 }
 
-Future<Either<FailureError, List<AddItemToCartModel>>> getAllCartItemsByUseID(
+Future<Either<FailureError, List<MedicineCartModel>>> getAllCartItemsByUseID(
     String userID){
 
   return cartDomainRepo.getAllCartItemsByUseID(userID);

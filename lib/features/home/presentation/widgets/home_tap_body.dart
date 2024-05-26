@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +13,16 @@ class HomeTapBody extends StatelessWidget {
   const HomeTapBody({
     super.key,
     required this.items,
-    required this.medicineCategories,
     required this.onTap,
   });
 
   final List items;
-  final List<String> medicineCategories;
   final void Function(int index)? onTap;
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<HomeProvider>(context, listen: true);
+    log("provider.isLoading = ${provider.isLoading}");
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Padding(
@@ -40,23 +42,22 @@ class HomeTapBody extends StatelessWidget {
                       AppStyles.bold25(context).copyWith(color: Colors.black),
                 ),
               ),
-              context.watch<HomeProvider>().getCategoriesSuccess
-                  ? SizedBox(
-                      height: 650, // Adjust the height as needed
-                      child: CustomeGridView(
-                        items: items,
-                        medicineCategories: medicineCategories,
-                        onTap: onTap,
-                      ))
-                  : Column(children: [
+              provider.getCategoriesLoading
+                  ? Column(children: [
                       SizedBox(
-                        height: 110,
+                        height: MediaQuery.of(context).size.height * .22,
                       ),
                       Center(
                           child: CircularProgressIndicator(
-                        color: AppStyles.primaryColor,
+                        color: AppStyles.secondaryColor,
                       )),
                     ])
+                  : SizedBox(
+                      height: 650, // Adjust the height as needed
+                      child: CustomeGridView(
+                        items: items,
+                        onTap: onTap,
+                      ))
             ],
           ),
         ),

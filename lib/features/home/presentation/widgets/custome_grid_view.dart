@@ -9,12 +9,10 @@ class CustomeGridView extends StatelessWidget {
   const CustomeGridView({
     super.key,
     required this.items,
-    required this.medicineCategories,
     this.onTap,
   });
 
   final List items;
-  final List<String> medicineCategories;
   final void Function(int index)? onTap;
   final List textColors = const [
     Color(0xffb4937b),
@@ -45,17 +43,15 @@ class CustomeGridView extends StatelessWidget {
         return InkWell(
           onTap: () async {
             onTap!(provider.categories[index].categoryId!);
-            Future.delayed(const Duration(seconds: 2), () async {
               await provider.getMedicinesByCategoryId(
                   provider.categories[index].categoryId.toString());
               print("fensh call getMedicinesById");
-            });
           },
           child: Stack(children: [
 
             Container(
               height: _getItemHeight(index: index) +
-                  _getItemHeightParentContainer(index: index),
+                  _getItemParentHeight(index: index),
               color: items[index],
               child: Align(
                   alignment: Alignment.bottomLeft,
@@ -70,11 +66,21 @@ class CustomeGridView extends StatelessWidget {
             ),
 
             Positioned(
+              right: 0,
+              left: 0,
+              top: _getItemHeight(index: index) * .4,
+              child: Column(
+                  children:[ SizedBox(
+                      height: 20,width: 20,
+                      child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2,))]),
+            ),
+
+            Positioned(
               top: 0,
               left: 0,
               right: 0,
               child: Container(
-                color: items[index],
+                color: Colors.transparent,
                 // _getItemHeight(index: index),
                 height: _getItemHeight(index: index),
                 child: FittedBox(
@@ -83,18 +89,6 @@ class CustomeGridView extends StatelessWidget {
                       provider.categories[index].photo!,
                       fit: BoxFit.fitHeight,
                     )),
-                // RotatedBox(
-                //   quarterTurns: index-1,
-                //   child: RichText(
-                //     text: TextSpan(
-                //       text: context
-                //           .watch<HomeProvider>()
-                //           .categories[index]
-                //           .name,
-                //       style: AppStyles.bold36(context),
-                //     ),
-                //   ),
-                // ),
               ),
             ),
 
@@ -121,7 +115,7 @@ class CustomeGridView extends StatelessWidget {
     return height;
   }
 
-  double _getItemHeightParentContainer({required index}) {
+  double _getItemParentHeight({required index}) {
     double height = 0;
     if (index == 0) {
       height = 22;

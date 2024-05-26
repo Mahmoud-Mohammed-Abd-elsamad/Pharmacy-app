@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<RegisterProvider>(context, listen: false);
+    var provider = Provider.of<RegisterProvider>(context, listen: true);
     return Scaffold(
       body: Form(
         key: provider.formKey,
@@ -45,6 +45,20 @@ class RegisterScreen extends StatelessWidget {
                 },
                 text: 'user name',
                 controller: provider.userNameController,
+              ),
+              SizedBox(height: 16,),
+              const CustomTitle(
+                title: 'phone number',
+              ),
+              CustomTextField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter user phone began with 1';
+                  }
+                  return null;
+                },
+                text: 'phone number',
+                controller: provider.phoneController,
               ),
               SizedBox(height: 16,),
 
@@ -81,23 +95,22 @@ class RegisterScreen extends StatelessWidget {
                 controller: provider.passController,
               ),
               const SizedBox(
-                height: 18,
-              ),
-              const SizedBox(
-                height: 32,
+                height: 50,
               ),
               Center(
-                  child: CustomButton(
-                onPressed: () {
+                  child: CustomButton(isLoading: provider.showLoading,
+                onPressed: () async{
                   if (provider.formKey.currentState!.validate()) {
-                    provider.registerUser();
-                    pushSnackPar(context,
-                        text: provider.registerSuccessMessage ??
-                            provider.registerFailureMessage ??
-                            " ");
+                   await provider.registerUser();
+                    if(provider.registerSuccess && context.mounted){
+                      pushSnackPar(context, text: provider.registerSuccessMessage!);
+                      Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
+                    }else if(!provider.registerSuccess && context.mounted){
+                      pushSnackPar(context, text: provider.registerFailureMessage! + "please try again");
+                    }
                   }
                 },
-                text: "Register",
+                text:  "Register",
                 height: 48,
                 width: 320,
                 backColor: AppStyles.secondaryColor,

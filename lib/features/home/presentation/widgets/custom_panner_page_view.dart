@@ -50,9 +50,9 @@ class CustomPannerPageViewState extends State<CustomPannerPageView> {
   @override
   Widget build(BuildContext context) {
     var currentTabs = [
-      PannerItem(image: Assets.pharmacyImage, currentPageIndex: currentIndex, ),
-      PannerItem(image: Assets.pharmacyImage, currentPageIndex: currentIndex, ),
-      PannerItem(image: Assets.pharmacyImage, currentPageIndex: currentIndex, ),
+      PannerItem(image: Assets.panner_image1, currentPageIndex: currentIndex, ),
+      PannerItem(image: Assets.panner_image2, currentPageIndex: currentIndex, ),
+      PannerItem(image: Assets.panner_image3, currentPageIndex: currentIndex, ),
     ];
     return  ExpandablePageView(
       scrollDirection: Axis.horizontal,

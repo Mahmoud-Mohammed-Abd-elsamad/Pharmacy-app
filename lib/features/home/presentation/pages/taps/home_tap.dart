@@ -1,5 +1,6 @@
 import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/features/home/presentation/widgets/custom_panner_page_view.dart';
+import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -11,7 +12,6 @@ import '../../widgets/custome_grid_view.dart';
 import '../../widgets/home_tap_body.dart';
 import '../../widgets/selected_category_content.dart';
 
-
 class HomeTap extends StatefulWidget {
   HomeTap({super.key});
 
@@ -20,8 +20,7 @@ class HomeTap extends StatefulWidget {
 }
 
 class _HomeTapState extends State<HomeTap> {
-
-  final List items = [
+  final List items =const [
     Color(0xffB9B9AF),
     Color(0xffA7BAC1),
     Color(0xffA6745D),
@@ -34,39 +33,12 @@ class _HomeTapState extends State<HomeTap> {
     Color(0xffDCD2D1),
     Color(0xffD0D1D3),
     Color(0xffDFCEA9),
-
-
-
-
   ];
 
-  final List<String> medicineCategories = [
-    "Hair 2Care",
-    "Skin Care",
-    "Diet",
-    "Pain Relief",
-    "Vitamins & Supplements",
-    "Allergy & Sinus",
-    "Digestive Health",
-    "First Aid",
-    "Eye Care",
-    "Oral Care",
-    "First Aid",
-    "Allergy & Sinus",
-    "Digestive Health",
-    "Allergy & Sinus",
-    "Digestive Health",
-    "First Aid",
-  ];
-
-
-
-  bool  selectedCategory = false;
+  bool selectedCategory = false;
   String catId = "";
 
-
-
-  void Function()? onTap(index){
+  void Function()? onTap(index) {
     setState(() {
       catId = index.toString();
       selectedCategory = true;
@@ -77,15 +49,23 @@ class _HomeTapState extends State<HomeTap> {
   @override
   Widget build(BuildContext context) {
     print("selectedCategory $selectedCategory  >>");
-    return selectedCategory ? SelectedCategoryContent(catId: catId,) : CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: CustomPannerPageView(),
-        ),
-        HomeTapBody(items: items, medicineCategories: medicineCategories, onTap: onTap,)
-      ],
-    );
+    print(
+        "selectedCategory ${Provider.of<LoginProvider>(context).userInfo.fullName}  >>");
+
+    return selectedCategory
+        ? SelectedCategoryContent(
+            catId: catId,
+          )
+        : CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: CustomPannerPageView(),
+              ),
+              HomeTapBody(
+                items: items,
+                onTap: onTap,
+              )
+            ],
+          );
   }
 }
-
-

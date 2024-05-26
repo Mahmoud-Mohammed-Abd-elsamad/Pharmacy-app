@@ -7,8 +7,10 @@ import '../../../../core/utils/app_styles.dart';
 
 class AdminInfo extends StatelessWidget {
   const AdminInfo({
-    super.key,
+    super.key, required this.userName,
   });
+
+  final  String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class AdminInfo extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("User Name",style: AppStyles.bold17(context).copyWith(color: Color(0xff29256E)),),
+            Text("Hello, Dr/$userName",style: AppStyles.bold17(context).copyWith(color: Color(0xff29256E)),),
             Text("Welceome Back",style: AppStyles.bold12(context).copyWith(color: const Color(0xff8CB9CF))),
           ],
         ),

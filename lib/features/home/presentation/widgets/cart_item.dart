@@ -9,15 +9,16 @@ import 'package:provider/provider.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/assets.dart';
 import '../../data/models/add_item_to_cart_model.dart';
+import '../../data/models/get_all_cart_items_model.dart';
 import 'custo_button.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({
     super.key,
-    required this.addItemToCartModel, required this.index,
+    required this.medicineCartModel, required this.index,
   });
 
-  final AddItemToCartModel addItemToCartModel;
+  final MedicineCartModel medicineCartModel;
   final int index;
 
   @override
@@ -52,24 +53,31 @@ class _CartItemState extends State<CartItem> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
+              Image.network(
                   //addItemToCartModel.image
-                  Assets.imageTestData3,
+                  widget.medicineCartModel.medicinePhoto.toString(),
                   height: 70,
                   width: 70),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.addItemToCartModel.cartItemId.toString(),
-                    style: AppStyles.semiBold20(context)
-                        .copyWith(color: Colors.black),
+                  Flexible(
+                    child: Text(
+                      widget.medicineCartModel.medicineName.toString().substring(0,12),
+                      overflow: TextOverflow.ellipsis,
+                      style: AppStyles.semiBold20(context)
+                          .copyWith(color: Colors.black),
+                    ),
                   ),
-                  Text(
-                    widget.addItemToCartModel.medicineId.toString() + "EGP",
-                    style: AppStyles.semiBold20(context)
-                        .copyWith(color: Color(0xff58ACD4)),
+                  Flexible(
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      widget.medicineCartModel.medicinePrice.toString() + "EGP",
+
+                      style: AppStyles.semiBold20(context)
+                          .copyWith(color: Color(0xff58ACD4)),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,20 +88,20 @@ class _CartItemState extends State<CartItem> {
                           iconColor: Colors.black,
                           radius: 15,
                           onPressed: () async{
-                            if (widget.addItemToCartModel.itemQuantity! > 1) {
+                            if (widget.medicineCartModel.itemQuantity! > 1) {
 
-                              widget.addItemToCartModel.itemQuantity =
-                                  widget.addItemToCartModel.itemQuantity! - 1;
+                              widget.medicineCartModel.itemQuantity =
+                                  widget.medicineCartModel.itemQuantity! - 1;
                             await  provider.updateCartItem(
                                   UpdateCartItemModel(
                                       cartItemId:
-                                      widget.addItemToCartModel.cartItemId,
-                                      userId: widget.addItemToCartModel.userId,
+                                      widget.medicineCartModel.cartItemId,
+                                      userId: widget.medicineCartModel.userId,
                                       medicineId:
-                                      widget.addItemToCartModel.medicineId,
+                                      widget.medicineCartModel.medicineId,
                                       itemQuantity: widget
-                                          .addItemToCartModel.itemQuantity));
-                            provider.totalCartPrice = provider.totalCartPrice! - widget.addItemToCartModel.medicineId!;
+                                          .medicineCartModel.itemQuantity));
+                            provider.totalCartPrice = provider.totalCartPrice! - widget.medicineCartModel.medicinePrice!;
                             log("provider.totalCartPrice new = ${provider.totalCartPrice}");
                               setState(() {});
                             }
@@ -105,7 +113,7 @@ class _CartItemState extends State<CartItem> {
                         height: 30,
                         width: 15,
                         child: Text(
-                          widget.addItemToCartModel.itemQuantity.toString(),
+                          widget.medicineCartModel.itemQuantity.toString(),
                           style: AppStyles.bold25(context)
                               .copyWith(color: Colors.black),
                         ),
@@ -119,22 +127,26 @@ class _CartItemState extends State<CartItem> {
                           iconColor: Colors.white,
                           radius: 15,
                           onPressed: () async{
-                            if (widget.addItemToCartModel.itemQuantity! < 3) {
+                            if (widget.medicineCartModel.itemQuantity! < widget.medicineCartModel.medicineQuantity!) {
 
-                              widget.addItemToCartModel.itemQuantity =
-                                  widget.addItemToCartModel.itemQuantity! + 1;
+                              widget.medicineCartModel.itemQuantity =
+                                  widget.medicineCartModel.itemQuantity! + 1;
                             await  provider.updateCartItem(
                                   UpdateCartItemModel(
                                       cartItemId:
-                                      widget.addItemToCartModel.cartItemId,
-                                      userId: widget.addItemToCartModel.userId,
+                                      widget.medicineCartModel.cartItemId,
+                                      userId: widget.medicineCartModel.userId,
                                       medicineId:
-                                      widget.addItemToCartModel.medicineId,
+                                      widget.medicineCartModel.medicineId,
                                       itemQuantity: widget
-                                          .addItemToCartModel.itemQuantity));
-                              provider.totalCartPrice = provider.totalCartPrice! + widget.addItemToCartModel.medicineId!;
-                              log("provider.totalCartPrice new = ${provider.totalCartPrice}");
-                              setState(() {});
+                                          .medicineCartModel.itemQuantity));
+
+                              setState(() {
+                                log(" ${provider.totalCartPrice} + addd new = ${widget.medicineCartModel.medicinePrice}");
+                                provider.totalCartPrice = provider.totalCartPrice + widget.medicineCartModel.medicinePrice!;
+                                log("provider.totalCartPrice new = ${provider.totalCartPrice}");
+                                log(" set state new = ${provider.totalCartPrice}");
+                              });
                             }
                           })
                     ],
@@ -147,7 +159,7 @@ class _CartItemState extends State<CartItem> {
                   onTap: ()async {
                     provider.cartItems.removeAt(widget.index);
 
-                    await provider.deleteCartItem(widget.addItemToCartModel.cartItemId.toString());
+                    await provider.deleteCartItem(widget.medicineCartModel.cartItemId.toString());
                     setState(() {
 
                     });

@@ -42,15 +42,19 @@ dependencies:
   expandable_page_view: ^1.0.17
   dartz: ^0.10.1
   provider: ^6.1.2
-  http: ^1.2.0
+  http: 1.1.2
   dio: ^5.4.3+1
-  geolocator: ^11.0.0
+  geolocator: ^10.1.0
   location: ^6.0.2
   flutter_stripe: ^10.1.1
   flutter_credit_card: ^4.0.0+1
   font_awesome_flutter: ^10.5.0
   image_picker: ^1.0.8
   permission_handler: ^11.3.1
+  open_street_map_search_and_pick: ^0.1.1
+  geocoding: ^3.0.0
+  introduction_screen: ^3.1.12
+
 
 
 

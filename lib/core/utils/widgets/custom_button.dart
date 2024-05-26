@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import '../app_styles.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,required this.onPressed, required this.text,  this.height,  this.width, this.backColor, this.textColor,
+   CustomButton({
+    super.key,required this.onPressed, required this.text,  this.height,  this.width, this.backColor, this.textColor,  this.isLoading,
   });
 
+   bool? isLoading;
   final String text;
   final Color? textColor;
   final void Function()? onPressed;
@@ -32,7 +33,7 @@ class CustomButton extends StatelessWidget {
 
         ),
         onPressed: onPressed,
-        child: Text(text,style: AppStyles.semiBold20(context).copyWith(color: textColor ?? Colors.white),),
+        child:isLoading ?? false ? SizedBox( height: 20, width: 20, child: const CircularProgressIndicator(color: Colors.white,)) : Text(text,style: AppStyles.semiBold20(context).copyWith(color: textColor ?? Colors.white),),
       ),
     );
   }

@@ -25,6 +25,8 @@ class LoginProvider extends ChangeNotifier {
   bool switchValue = false;
   var showLoading = false;
   var loginSuccess = false;
+  LoginModel userInfo = LoginModel(fullName: " mmmmmmmmmm");
+
   var isAdmin = false;
   String? loginSuccessMessage;
   String? loginFailureMessage = "failure";
@@ -40,23 +42,19 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loginUser() async {
+  Future loginUser() async {
     showLoading = true;
     notifyListeners();
     LoginDomainRepo loginDomainRepo =
         LoginDataRepo(loginUserDataSource: loginUserDataSource);
     var useCase = LoginUserUseCase(loginDomainRepo: loginDomainRepo);
-
-    print("call call call");
+    print("call call login provider");
     print("${emailController.value.text}");
     print("${passController.value.text}");
     var result = await useCase.call(LoginBody(
         email: emailController.value.text,
         password: passController.value.text));
-
-    //notifyListeners();
     result.fold((l) {
-      //return l;
       showLoading = false;
       loginSuccess = false;
       loginFailureMessage = l.message;
@@ -65,6 +63,7 @@ class LoginProvider extends ChangeNotifier {
       isAdmin = r.isAdmin!;
       showLoading = false;
       loginSuccess = true;
+      userInfo = r;
       loginSuccessMessage = r.fullName;
       notifyListeners();
     });

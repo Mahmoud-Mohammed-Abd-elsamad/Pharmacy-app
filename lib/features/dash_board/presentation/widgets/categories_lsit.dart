@@ -19,7 +19,7 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<HomeProvider>(context, listen: true);
     var items = provider.categories;
-    return provider.isLoading
+    return provider.getCategoriesLoading
         ? const Center(
             child: CircularProgressIndicator(
               color: AppStyles.secondaryColor,
@@ -34,8 +34,24 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     await provider.getMedicinesByCategoryId(
                         items[index].categoryId.toString());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider(
+                                create: (BuildContext context) {
+                                  return HomeProvider(
+                                      categoriesDataSource:
+                                      RemoteCategoriesDataSource(),
+                                      medicineDataSource:
+                                      RemoteMedicineDataSource(),
+                                      cartDataSource: RemoteCartDataSource());
+                                },
+                                child: DashBoardMedicinesScreen(items: provider.medicines, selectedCategory: items[index],
+                                ))));
+
                     provider.selectedMedicineNameForDashBoard =
                         items[index].name!;
+                    log("name >>>>>>>>>>>>>>> ${provider.getMedicinesSuccess}");
 
                     if (provider.getMedicinesSuccess && context.mounted) {
                       Navigator.push(

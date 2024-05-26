@@ -21,6 +21,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../data/models/add_item_to_cart_body.dart';
+import '../../../data/models/get_all_cart_items_model.dart';
 import '../../../data/models/medicine_body.dart';
 import '../../../domain/repositories/cart_domain_repo.dart';
 
@@ -35,26 +36,29 @@ class HomeProvider extends ChangeNotifier {
       required this.cartDataSource});
 
   bool isLoading = false;
+  bool addToCartLoading = false;
+  bool getCategoriesLoading = false;
   bool getCategoriesSuccess = false;
   bool getMedicinesSuccess = false;
   bool addToCartSuccess = false;
   bool getAllCartItemsSuccess = false;
   bool createMedicineSuccess = false;
   bool updateMedicineSuccess = false;
+  bool deleteMedicineSuccess = false;
   int selectedMedicineItemToAddToCart = -1;
   int totalCartPrice = 0;
   List<CategoryModel> categories = [];
   List<SelectedCategoryItemModel> medicines = [];
   List<String> allAddedItemsToCartWithMedicineIdList = [];
   List<String> allAddedItemsToCartWithCartIdList = [];
-  List<AddItemToCartModel> cartItems = [];
+  List<MedicineCartModel> cartItems = [];
   AddItemToCartModel? addItemToCartModel;
   String selectedMedicineNameForDashBoard = "";
-   XFile? pickedImage;
+  XFile? pickedImage;
 
   Future getAllCategories() async {
     log("getAllCategories called ========================");
-    isLoading = true;
+    getCategoriesLoading = true;
 
     CategoriesDomainRepo categoriesDomainRepo =
         CategoriesDataRepo(categoriesDataSource);
@@ -65,20 +69,21 @@ class HomeProvider extends ChangeNotifier {
     print(" hllo hello" + result.length().toString());
 
     result.fold((l) {
-      isLoading = false;
+      getCategoriesLoading = false;
       getCategoriesSuccess = false;
       notifyListeners();
     }, (r) {
       categories = r;
-      isLoading = false;
+      getCategoriesLoading = false;
       getCategoriesSuccess = true;
       notifyListeners();
     });
   }
 
   Future getMedicinesByCategoryId(String id) async {
-    log("getMedicinesById called ========================");
+    isLoading = true;
 
+    notifyListeners();
     MedicineDomainRepo medicineDomainRepo =
         MedicineDataRepo(medicineDataSource);
     MedicineUseCase useCase =
@@ -86,45 +91,43 @@ class HomeProvider extends ChangeNotifier {
     var result = await useCase.getMedicinesByCategoryId(id);
     log(" hello hello${result.length()}");
     result.fold((l) {
-      // isLoading = false;
+      isLoading = false;
       getMedicinesSuccess = false;
       notifyListeners();
     }, (r) {
-      //log("lolololololoololololo  r lenth   ${r[2].name}");
       medicines = r;
-      // isLoading = false;
-      log("lolololololoololololo  medicines lenth   ${medicines.length}");
+      isLoading = false;
       getMedicinesSuccess = true;
       notifyListeners();
     });
   }
 
-  // Future createMedicineInSpecificCategory(
-  //     {required MedicineBody medicineBody}) async {
-  //   isLoading = true;
-  //   notifyListeners();
-  //
-  //   log("createMedicineInSpecificCategory called ========================");
-  //
-  //   MedicineDomainRepo medicineDomainRepo =
-  //       MedicineDataRepo(medicineDataSource);
-  //   MedicineUseCase useCase =
-  //       MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
-  //   var result = await useCase.createMedicineInSpecificCategory(
-  //       medicineBody: medicineBody);
-  //   result.fold((l) {
-  //     isLoading = false;
-  //     createMedicineSuccess = false;
-  //     log("createMedicineInSpecificCategory Failed  ========${l.message}================");
-  //
-  //     notifyListeners();
-  //   }, (r) {
-  //     log("createMedicineInSpecificCategory Success  ========${r["message"]}================");
-  //     isLoading = false;
-  //     createMedicineSuccess = true;
-  //     notifyListeners();
-  //   });
-  // }
+  Future createMedicineInSpecificCategory(
+      {required MedicineBody medicineBody}) async {
+    isLoading = true;
+    notifyListeners();
+
+    log("createMedicineInSpecificCategory called ========================");
+
+    MedicineDomainRepo medicineDomainRepo =
+        MedicineDataRepo(medicineDataSource);
+    MedicineUseCase useCase =
+        MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
+    var result = await useCase.createMedicineInSpecificCategory(
+        medicineBody: medicineBody);
+    result.fold((l) {
+      isLoading = false;
+      createMedicineSuccess = false;
+      log("createMedicineInSpecificCategory Failed  ========${l.message}================");
+
+      notifyListeners();
+    }, (r) {
+      log("createMedicineInSpecificCategory Success  ========${r["message"]}================");
+      isLoading = false;
+      createMedicineSuccess = true;
+      notifyListeners();
+    });
+  }
 
   Future updateMedicineInSpecificCategory(
       {required MedicineBody medicineBody}) async {
@@ -134,9 +137,9 @@ class HomeProvider extends ChangeNotifier {
     log("updateMedicineInSpecificCategory called ========================");
 
     MedicineDomainRepo medicineDomainRepo =
-    MedicineDataRepo(medicineDataSource);
+        MedicineDataRepo(medicineDataSource);
     MedicineUseCase useCase =
-    MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
+        MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
     var result = await useCase.updateMedicineInSpecificCategory(
         medicineBody: medicineBody);
     result.fold((l) {
@@ -153,9 +156,35 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
+  Future deleteMedicineInSpecificCategory({required String medicineId}) async {
+    isLoading = true;
+    notifyListeners();
+
+    log("deleteMedicineCategory called ========================");
+
+    MedicineDomainRepo medicineDomainRepo =
+        MedicineDataRepo(medicineDataSource);
+    MedicineUseCase useCase =
+        MedicineUseCase(medicineDomainRepo: medicineDomainRepo);
+    var result =
+        await useCase.deleteMedicineInSpecificCategory(medicineId: medicineId);
+    result.fold((l) {
+      isLoading = false;
+      deleteMedicineSuccess = false;
+      log("deleteMedicineCategory Failed  ========${l.message}================");
+
+      notifyListeners();
+    }, (r) {
+      log("deleteMedicineCategory Success  ========${r["message"]}================");
+      isLoading = false;
+      deleteMedicineSuccess = true;
+      notifyListeners();
+    });
+  }
+
   Future addItemToCart({required AddItemToCartBody addItemToCartBody}) async {
     log("addItemToCart called ========================");
-    isLoading = true;
+    addToCartLoading = true;
     notifyListeners();
     CartDomainRepo cartDomainRepo = CartDataRepo(cartDataSource);
     CartUseCase useCase = CartUseCase(cartDomainRepo: cartDomainRepo);
@@ -165,13 +194,13 @@ class HomeProvider extends ChangeNotifier {
 
     result.fold((l) {
       isLoading = false;
-      addToCartSuccess = false;
+      addToCartLoading = false;
 
       log("addItemToCart false ========================");
       notifyListeners();
     }, (r) {
       addItemToCartModel = r;
-      isLoading = false;
+      addToCartLoading = false;
       addToCartSuccess = true;
       allAddedItemsToCartWithCartIdList.add(r.cartItemId.toString());
       log("addItemToCart true ========================");
@@ -204,7 +233,7 @@ class HomeProvider extends ChangeNotifier {
       if (cartItems.isNotEmpty) {
         totalCartPrice = cartItems.map((e) {
           if (e.medicineId == null) return 0;
-          return e.medicineId! * e.itemQuantity!;
+          return e.medicinePrice! * e.itemQuantity!;
         }).reduce((value, element) => value + element);
       }
       log("totalCartPrice = $totalCartPrice >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -244,14 +273,13 @@ class HomeProvider extends ChangeNotifier {
     // Check for storage permission
     if (statuses[Permission.camera] != PermissionStatus.granted ||
         statuses[Permission.storage] != PermissionStatus.granted) {
-        log('Storage permission denied');
-        return;
-      }
-
+      log('Storage permission denied');
+      return;
+    }
 
     // If permission is granted, proceed to pick image
     final ImagePicker _picker = ImagePicker();
-     pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    pickedImage = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       notifyListeners();

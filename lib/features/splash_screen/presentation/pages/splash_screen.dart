@@ -40,7 +40,11 @@ class SplashScreen extends StatelessWidget {
                 height: 48,
                 backColor:AppStyles.secondaryColor,
 
-                onPressed: () {},
+                onPressed: () {
+
+                  Navigator.pushNamed(context, Routes.loginScreen);
+
+                },
                 text: 'Admin',
               ),
               const Flexible(
@@ -62,7 +66,7 @@ class SplashScreen extends StatelessWidget {
                 height: 48,
                 backColor:AppStyles.secondaryColor,
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.locationScreen);
+                  Navigator.pushNamed(context, Routes.loginScreen);
                 },
                 text: 'User',
               ),

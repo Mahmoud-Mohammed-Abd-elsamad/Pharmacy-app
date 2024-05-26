@@ -32,4 +32,9 @@ MedicineDataSource medicineDataSource;
     return medicineDataSource.updateMedicineInSpecificCategory(medicineBody: medicineBody);
   }
 
+  @override
+  Future<Either<FailureError, Map<String, dynamic>>> deleteMedicineInSpecificCategory({required String medicineId}) {
+    return medicineDataSource.deleteMedicineInSpecificCategory(medicineId: medicineId);
+  }
+
 }

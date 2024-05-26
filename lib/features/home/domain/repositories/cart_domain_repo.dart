@@ -4,12 +4,13 @@ import 'package:farmacy_app/features/home/data/models/add_item_to_cart_model.dar
 
 import '../../data/models/add_item_to_cart_body.dart';
 import '../../data/models/category_model.dart';
+import '../../data/models/get_all_cart_items_model.dart';
 import '../../data/models/item_model.dart';
 
 abstract class CartDomainRepo{
 
   Future<Either<FailureError, AddItemToCartModel>> addItemToCart(AddItemToCartBody addItemToCartBody) ;
-  Future<Either<FailureError, List<AddItemToCartModel>>> getAllCartItemsByUseID(
+  Future<Either<FailureError, List<MedicineCartModel>>> getAllCartItemsByUseID(
       String userID);
 
 }

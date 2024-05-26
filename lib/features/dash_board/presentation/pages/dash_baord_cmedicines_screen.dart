@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../congfig/routes/routes.dart';
 import '../../../home/data/models/category_model.dart';
 import '../../../home/data/models/item_model.dart';
 import '../../../home/data/models/medicine_body.dart';
@@ -40,35 +41,44 @@ class DashBoardMedicinesScreen extends StatelessWidget {
             icon: Icons.add,
             onTap: () async {
               log("log caled");
-              // ShowAlertDialog.showAlertDialog(
-              //     context, title: "Add New Medicine", onPressed: () async {
-              //   //Cll the add new medicine method
-              // //  provider.pickImageFromGallery();
-              //   if(provider.pickedImage == null){
-              //     SnackBarClass.pushSnackPar(context, text: "Please chose an image");
-              //     return;
-              //   }
-              //
-              //  await provider.createMedicineInSpecificCategory(
-              //       medicineBody: MedicineBody(photo: provider.pickedImage!,
-              //           name: ShowAlertDialog.nameTextEditingController.value
-              //               .text,
-              //           description: ShowAlertDialog.nameTextEditingController
-              //               .value.text,
-              //           price: ShowAlertDialog.priceTextEditingController.value
-              //               .text,
-              //           medicineQuantity: ShowAlertDialog
-              //               .quantityTextEditingController.value.text,
-              //           categoryId: selectedCategory.categoryId.toString()));
-              //   if(provider.createMedicineSuccess && context.mounted){
-              //     SnackBarClass.pushSnackPar(context, text: "Medicine Added Successfully");
-              //   }
-              //  await provider.getMedicinesByCategoryId(selectedCategory.categoryId.toString());
-              //   Navigator.pop(context);
-              // }, buttonText: "Add", isImageNeeded: true,onPressedImagePicker: ()async{
-              //   log("log caled");
-              //  await provider.pickImageFromGallery();
-              // });
+              ShowAlertDialog.showAlertDialog(context,
+                  title: "Add New Medicine",
+                  onPressed: () async {
+                    //Cll the add new medicine method
+                    //  provider.pickImageFromGallery();
+                    if (provider.pickedImage == null) {
+                      SnackBarClass.pushSnackPar(context,
+                          text: "Please chose an image");
+                      return;
+                    }
+
+                    await provider.createMedicineInSpecificCategory(
+                        medicineBody: MedicineBody(
+                            photo: provider.pickedImage!,
+                            name: ShowAlertDialog
+                                .nameTextEditingController.value.text,
+                            description: ShowAlertDialog
+                                .nameTextEditingController.value.text,
+                            price: ShowAlertDialog
+                                .priceTextEditingController.value.text,
+                            medicineQuantity: ShowAlertDialog
+                                .quantityTextEditingController.value.text,
+                            categoryId:
+                                selectedCategory.categoryId.toString()));
+                    if (provider.createMedicineSuccess && context.mounted) {
+                      SnackBarClass.pushSnackPar(context,
+                          text: "Medicine Added Successfully");
+                    }
+                    await provider.getMedicinesByCategoryId(
+                        selectedCategory.categoryId.toString());
+                    Navigator.pop(context);
+                  },
+                  buttonText: "Add",
+                  isImageNeeded: true,
+                  onPressedImagePicker: () async {
+                    log("log caled");
+                    await provider.pickImageFromGallery();
+                  });
             },
             iconSize: 32,
             backgroundColor: Colors.white,
@@ -80,24 +90,41 @@ class DashBoardMedicinesScreen extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          CustomCircleButton(
-            icon: Icons.menu,
-            onTap: () {},
-            iconSize: 21,
-            backgroundColor: AppStyles.secondaryColor,
-            iconColor: Colors.white,
+          Transform.rotate(
+            angle: 1.56 * 2,
+            child: CustomCircleButton(
+              icon: Icons.logout,
+              onTap: () {
+                log("logg icon called");
+                log("logg icon called");
+                ShowAlertDialog.showLogoutAlertDialog(context, onPressed: (){
+                  Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
+                });
+              },
+              iconSize: 21,
+              backgroundColor: AppStyles.secondaryColor,
+              iconColor: Colors.white,
+            ),
           ),
-          SizedBox(width: 16,)
+          SizedBox(
+            width: 16,
+          )
         ],
       ),
       body: Column(
         children: [
-          SizedBox(height: 32,),
-          CustomHeadTableInformationOfMedicines(),
-          DashBoardMedicineData(medicines:context.watch<HomeProvider>().medicines.isEmpty ? items : provider.medicines, selectedCategory:selectedCategory,)
+          SizedBox(
+            height: 32,
+          ),
+          const CustomHeadTableInformationOfMedicines(),
+          DashBoardMedicineData(
+            medicines: context.watch<HomeProvider>().medicines.isEmpty
+                ? items
+                : provider.medicines,
+            selectedCategory: selectedCategory,
+          )
         ],
       ),
     );
   }
-
 }

@@ -11,15 +11,22 @@ class Assets {
   static const String imagesCahtBotIcon = 'assets/images/caht_bot_icon.svg';
   static const String imagesCashIcon = 'assets/images/cash_icon.svg';
   static const String imagesChatIcon = 'assets/images/chat_icon.svg';
+  static const String imagesDelete = 'assets/images/delete.png';
+  static const String imagesDiskette = 'assets/images/diskette.png';
   static const String imagesDoctorOrPatientImage = 'assets/images/doctor_or_patient_image.svg';
+  static const String imagesEditing = 'assets/images/editing.png';
   static const String imagesImageData = 'assets/images/image_data.png';
   static const String imagesImageData2 = 'assets/images/image_data2.svg';
   static const String imagesImageDataTest2 = 'assets/images/image_data_test2.svg';
   static const String imagesImageTestData1 = 'assets/images/image_test_data1.svg';
   static const String imagesLockImage = 'assets/images/lock_image.svg';
+  static const String imagesOIP = 'assets/images/OIP.jpeg';
   static const String imagesPanadool = 'assets/images/panadool.png';
+  static const String imagesPannerImage1 = 'assets/images/panner_image1.jpeg';
+  static const String imagesPannerImage2 = 'assets/images/panner_image2.jpg';
+  static const String imagesPannerImage3 = 'assets/images/panner_image3.jpg';
   static const String imagesPharmacyImage = 'assets/images/pharmacy_image.png';
   static const String imagesVisaIcon = 'assets/images/visa_icon.svg';
-  static const String imagesWhightImage = 'assets/images/wight_image.png';
+  static const String imagesWightImage = 'assets/images/wight_image.png';
 
 }

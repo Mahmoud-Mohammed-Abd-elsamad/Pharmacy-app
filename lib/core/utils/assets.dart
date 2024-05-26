@@ -11,4 +11,11 @@ abstract class Assets {
   static const String lookImage = "assets/images/lock_image.svg";
   static const String pharmacyImage = "assets/images/pharmacy_image.png";
   static const String wightImage = "assets/images/wight_image.png";
+  static const String panner_image1 = 'assets/images/panner_image1.jpeg';
+  static const String panner_image2 = 'assets/images/panner_image2.jpg';
+  static const String panner_image3 = 'assets/images/panner_image3.jpg';
+  static const logo = 'assets/images/Group 1918.png';
+  static const oneintrosplash = 'assets/images/Medicine-amico 1.png';
+  static const twointrosplash = 'assets/images/In no time-pana 1.png';
+  static const threeintrosplash = 'assets/images/Chat bot-rafiki (1) 1.png';
 }

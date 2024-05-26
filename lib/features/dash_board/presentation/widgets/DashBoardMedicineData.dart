@@ -33,23 +33,31 @@ class DashBoardMedicineData extends StatelessWidget {
           itemBuilder: (context, index) {
             return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               _customContainer(
-                  child: Stack(
-                    children:[
-                      const AspectRatio(aspectRatio: 71 / 75,
-                        child: Center(child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(color: AppStyles.primaryColor,strokeWidth: 3,))),
-                      ),
-                      Positioned.fill(
-
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Image.network(medicines[index].photo ??
-                            "https://roshetta.azurewebsites.net/Assets\\20245862sasa.jpg"),
-                        ),
-                      ),])),
-              _customContainer(child: Text(medicines[index].name!)),
+                  child: Stack(children: [
+                const AspectRatio(
+                  aspectRatio: 71 / 75,
+                  child: Center(
+                      child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: AppStyles.primaryColor,
+                            strokeWidth: 3,
+                          ))),
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Image.network(medicines[index].photo ??
+                        "https://roshetta.azurewebsites.net/Assets\\20245862sasa.jpg"),
+                  ),
+                ),
+              ])),
+              _customContainer(
+                  child: Text(
+                medicines[index].name!,
+                overflow: TextOverflow.ellipsis,
+              )),
               _customContainer(child: Text("${medicines[index].price!}.LE")),
               _customContainer(
                   child: Text(medicines[index].medicineQuantity.toString())),
@@ -69,12 +77,12 @@ class DashBoardMedicineData extends StatelessWidget {
                           title: 'Edit  ${medicines[index].name} medicine',
                           onPressed: () async {
                             SnackBarClass.pushSnackPar(context,
-                                text: "  Loding ......0");
+                                text: "  Loading .....");
 
                             await provider.updateMedicineInSpecificCategory(
                                 medicineBody: MedicineBody(
-                                  id: medicines[index].medicineId.toString(),
-                                    photo: provider.pickedImage?? null,
+                                    id: medicines[index].medicineId.toString(),
+                                    photo: provider.pickedImage ?? null,
                                     name: ShowAlertDialog
                                         .nameTextEditingController.value.text,
                                     description: ShowAlertDialog
@@ -115,10 +123,20 @@ class DashBoardMedicineData extends StatelessWidget {
                         CupertinoIcons.delete,
                         color: Colors.red,
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         //delete item
-                        // provider.deleteMedicines(id: items[index].id!);
-                        Navigator.pop(context);
+                        await provider.deleteMedicineInSpecificCategory(
+                            medicineId: medicines[index].medicineId.toString());
+                        if (provider.deleteMedicineSuccess && context.mounted) {
+                          SnackBarClass.pushSnackPar(context,
+                              text: "Medicine delete success");
+                          await provider.getMedicinesByCategoryId(
+                              selectedCategory.categoryId.toString());
+                        } else if (context.mounted) {
+                          SnackBarClass.pushSnackPar(context,
+                              text:
+                                  "Failed to delete ${medicines[index].name.toString()} ");
+                        }
                       },
                     ),
                   ],
@@ -135,6 +153,7 @@ class DashBoardMedicineData extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 71 / 57,
         child: Container(
+          padding: EdgeInsets.all(1),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
           ),

@@ -11,6 +11,7 @@ import 'package:farmacy_app/features/home/presentation/manager/home_provider/pro
 import 'package:farmacy_app/features/location_screen/presentation/pages/location_screen.dart';
 import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
 import 'package:farmacy_app/features/login_screen/presentation/pages/login_screen.dart';
+import 'package:farmacy_app/features/splash_screen/presentation/pages/splash/presentation/views/splash_view.dart';
 import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,14 @@ import 'package:provider/provider.dart';
 import '../../features/RegisterScreen/data/data_sources/register_data_source.dart';
 import '../../features/forget_password_screen/data/data_sources/forget_passord_data_sources.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
+import '../../features/location_screen/data/data_sources/branches_data_source.dart';
+import '../../features/location_screen/presentation/manager/locatin/provider.dart';
 import '../../features/location_screen/presentation/pages/governorate_screen.dart';
 import '../../features/login_screen/data/data_sources/login_user_data_source.dart';
 
 class Routes {
   static const String splashScreen = "/";
+  static const String splashView = "splashView";
   static const String locationScreen = "locationScreen";
   static const String loginScreen = "loginScreen";
   static const String registerScreen = "registerScreen";
@@ -37,6 +41,13 @@ class Routes {
 class AppRouts {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+
+      case Routes.splashView:
+        return MaterialPageRoute(builder: (context) {
+          return const SplashView();
+        });
+
+
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (context) {
           return const SplashScreen();
@@ -44,21 +55,22 @@ class AppRouts {
 
       case Routes.locationScreen:
         return MaterialPageRoute(builder: (context) {
-          return const LocationScreen();
+          return ChangeNotifierProvider(create: (BuildContext context) {
+            return LocationProvider(branchesDataSource: RemoteBranchesDataSource());
+          },
+          child: const LocationScreen());
         });
 
       case Routes.governorateScreen:
         return MaterialPageRoute(builder: (context) {
-          return const GovernorateScreen();
+          return ChangeNotifierProvider(create: (BuildContext context) {
+            return LocationProvider(branchesDataSource: RemoteBranchesDataSource());
+          },
+          child: const GovernorateScreen());
         });
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(
-              create: (BuildContext context) {
-                return LoginProvider(
-                    loginUserDataSource: RemoteLoginUserDataSource());
-              },
-              child: LoginScreen());
+          return LoginScreen();
         });
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (context) {
@@ -82,7 +94,8 @@ class AppRouts {
         return MaterialPageRoute(builder: (context) {
           return MultiProvider(providers: [
             ChangeNotifierProvider (create: (BuildContext context) {
-              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
+              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(),
+                  medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
             },),
           ],
           child: const HomeScreen());

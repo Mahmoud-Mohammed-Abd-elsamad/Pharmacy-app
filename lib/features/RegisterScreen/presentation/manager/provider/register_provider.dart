@@ -22,6 +22,7 @@ class RegisterProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   var confirmPassword = false;
@@ -34,7 +35,9 @@ class RegisterProvider extends ChangeNotifier {
 
   bool _isObscure = true;
 
+
   bool get isObscure => _isObscure;
+
 
   void changeObscure() {
     print("login clced icon");
@@ -43,7 +46,12 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
   
-  registerUser()async {
+  Future registerUser()async {
+    log("register is called showLoading is $showLoading");
+    showLoading = true;
+    notifyListeners();
+    log("register is called showLoading is $showLoading");
+
     var registerDomainRepo = RegisterDataRepo(registerDataSource: registerDataSource);
     var useCase = RegisterUserUseCase(registerDomainRepo: registerDomainRepo);
 
@@ -51,14 +59,22 @@ class RegisterProvider extends ChangeNotifier {
     print("${emailController.value.text}");
     print("${passController.value.text}");
     print("${userNameController.value.text}");
-    var result = await useCase.call(RegisterBody(name: userNameController.value.text, email: emailController.value.text, password: passController.value.text));
+    var result = await useCase.call(RegisterBody(name: userNameController.value.text, email: emailController.value.text, password: passController.value.text, phoneNumber:phoneController.value.text));
 
     result.fold((l) {
+      showLoading = false;
+      log("register is called showLoading is l $showLoading");
+
+
       registerSuccess = false;
       registerFailureMessage = l.message;
       notifyListeners();
 
     }, (r) {
+      showLoading = false;
+
+      log("register is called showLoading is r $showLoading");
+
       registerSuccess = true;
        registerSuccessMessage = r.message;
       notifyListeners();

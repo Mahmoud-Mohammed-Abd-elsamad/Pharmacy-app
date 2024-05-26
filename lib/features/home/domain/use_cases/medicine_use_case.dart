@@ -27,4 +27,8 @@ class MedicineUseCase{
 
     return medicineDomainRepo.updateMedicineInSpecificCategory(medicineBody: medicineBody);
   }
+
+  Future<Either<FailureError, Map<String, dynamic>>> deleteMedicineInSpecificCategory({required String medicineId}){
+   return medicineDomainRepo.deleteMedicineInSpecificCategory(medicineId: medicineId);
+  }
 }

@@ -1,34 +1,44 @@
+import 'dart:developer';
+
+import 'package:farmacy_app/features/location_screen/presentation/manager/locatin/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:geocoding/geocoding.dart';
+
 import 'package:geolocator/geolocator.dart';
 import '../../../../../../../congfig/routes/routes.dart';
 import '../../../../../../../core/utils/app_styles.dart';
+import '../pages/location.dart';
 import 'custom_dropdown_menu_button.dart';
 
 class LocationScreenHeader extends StatefulWidget {
-   LocationScreenHeader({
+  LocationScreenHeader({
     super.key,
   });
+
   String? governorate;
+  Map<String, String?>? addressFromMapps;
 
   @override
   State<LocationScreenHeader> createState() => _LocationScreenHeaderState();
-
-
 }
 
 class _LocationScreenHeaderState extends State<LocationScreenHeader> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<LocationProvider>(context, listen: true);
 
 
     return Container(
-      color: AppStyles.primaryColor,
+      color: AppStyles.secondaryColor,
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
-          const SizedBox(height: 60,),
+          const SizedBox(
+            height: 60,
+          ),
           Text(
             "Select Branch",
             style: AppStyles.bold17(context).copyWith(color: Colors.white),
@@ -54,13 +64,33 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
                         width: 8,
                       ),
                       InkWell(
-                        onTap: (){
-                          // Geolocator.requestPermission();
-                          // Geolocator.getCurrentPosition();
-                          MapUtils.openMap(30, 31);
+                        onTap: () async {
+                          widget.addressFromMapps = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SelectLocation(),
+                              ));
+                          if (widget.addressFromMapps != null) {
+                            provider.haveLocation = true;
+                            provider.address = widget.addressFromMapps;
+
+
+                            log("enterd ${widget.addressFromMapps!["state"]}");
+                            await provider.getBranchesByAddress(
+                                stateName: widget.addressFromMapps!["state"]!
+                                    .split(" ")[0]);
+                            provider.haveLocation = true;
+                            log("enterd ${provider.branches.length}");
+                          }
+                          setState(() {
+                            log("Set state");
+
+                          });
                         },
                         child: Text(
-                          "Select Location",
+                          provider.haveLocation
+                              ? "${provider.address!["state"]} - ${provider.address!["city"]}"
+                              : "Select Location",
                           style: AppStyles.medium16(context)
                               .copyWith(color: Colors.white),
                         ),
@@ -81,16 +111,22 @@ class _LocationScreenHeaderState extends State<LocationScreenHeader> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-               CustomDropdownMenuButton(text: widget.governorate ??'Select Governorate', onTap: () async {
-                 widget.governorate = await Navigator.pushNamed<dynamic>(context, Routes.governorateScreen);
-                 setState(() {
-
-                 });
-                 print("${widget.governorate ??'Select Governorate'}");
-               },),
-              CustomDropdownMenuButton(text: 'Select City / Area', onTap: () {  },),
-
-
+              CustomDropdownMenuButton(
+                text: widget.governorate ?? 'Select Governorate',
+                onTap: () async {
+                  widget.governorate = await Navigator.pushNamed<dynamic>(
+                      context, Routes.governorateScreen);
+                  if(widget.governorate != null){
+                   await provider.getBranchesByAddress(stateName: widget.governorate!);
+                  }
+                  setState(() {});
+                  print("${widget.governorate ?? 'Select Governorate'}");
+                },
+              ),
+              CustomDropdownMenuButton(
+                text: 'Select City / Area',
+                onTap: () {},
+              ),
             ],
           )
         ],

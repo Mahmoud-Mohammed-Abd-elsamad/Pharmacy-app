@@ -47,7 +47,7 @@ class GovernorateScreen extends StatelessWidget {
     'Luxor',
     'Matrouh',
     'Minya',
-    'Monufia',
+    'Menofia',
     'New Valley',
     'North Sinai',
     'Port Said',

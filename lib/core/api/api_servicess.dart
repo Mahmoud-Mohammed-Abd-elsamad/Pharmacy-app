@@ -52,10 +52,11 @@ class ApiServices {
   }
 
   Future<Response> put(
-      {required String url, required Map<String, dynamic> data}) async {
+      {required String url, required dynamic data,Options? options }) async {
     Response response = await _dio.put(
       url,
       data: data,
+      options: options
     );
     return response;
   }

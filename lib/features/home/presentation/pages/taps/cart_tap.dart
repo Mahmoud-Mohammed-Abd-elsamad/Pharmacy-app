@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:farmacy_app/congfig/routes/routes.dart';
 import 'package:farmacy_app/core/utils/widgets/custom_button.dart';
+import 'package:farmacy_app/core/utils/widgets/push_snack_par.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +10,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/app_styles.dart';
-import '../../../../../core/utils/assets.dart';
 import '../../../../../core/utils/stripe_services.dart';
-import '../../../../../core/utils/widgets/custom_app_bar.dart';
 
-import '../../../data/models/add_item_to_cart_model.dart';
-import '../../../data/models/cart_item_model.dart';
+
 import '../../manager/payment_provider/payment_privideer.dart';
 import '../../widgets/cart_item.dart';
 import '../../widgets/custm_payment_button.dart';
-import '../../widgets/custo_button.dart';
 import '../../widgets/payment_details.dart';
 import '../../widgets/payment_methosds.dart';
 
@@ -30,14 +27,20 @@ class CartTap extends StatefulWidget {
 }
 
 class _CartTapState extends State<CartTap> {
-  bool isVisaMethod = false;
+  bool isVisaMethod = true;
 
   updatePaymentMethod({required int index}) {
     if (index == 0) {
       isVisaMethod = false;
+      log("isVisaMethod $isVisaMethod");
     } else {
       isVisaMethod = true;
+      log("isVisaMethod $isVisaMethod");
+
     }
+    setState(() {
+
+    });
   }
 
   @override
@@ -83,7 +86,7 @@ class _CartTapState extends State<CartTap> {
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         return CartItem(
-                          addItemToCartModel: items[index],
+                          medicineCartModel: items[index],
                           index: index,
                         );
                       }),
@@ -98,36 +101,38 @@ class _CartTapState extends State<CartTap> {
           height: 16,
         ),
         CustomButton(
-          onPressed: () {
+          onPressed: () async {
             // Navigator.pushNamed(context, Routes.paymentScreen);
 
-            showModalBottomSheet(
-                context: context,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                builder: (context) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+           if(provider.cartItems.isEmpty){
+             SnackBarClass.pushSnackPar(context, text: "Your Cart is Empty");
+           }
+           else{
+           await  showModalBottomSheet(
+                 context: context,
+                 shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(16)),
+                 builder: (context) {
+                   return Column(
+                     mainAxisSize: MainAxisSize.min,
+                     children: [
                        PaymentMethods(updatePaymentMethod: updatePaymentMethod,),
-                      SizedBox(height: 16,),
-                      ChangeNotifierProvider(create: (BuildContext context) {
-                        return PaymentProvider(StripeServices());
-                      },
-                      child:  Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: CustomPaymentButton(isVisaMethod: isVisaMethod, totalPrice: provider.totalCartPrice + 20),),
-                      ),
-                      SizedBox(height: 16,),
+                       SizedBox(height: 16,),
+                       ChangeNotifierProvider(create: (BuildContext context) {
+                         return PaymentProvider(StripeServices());
+                       },
+                         child:  Padding(
+                           padding: EdgeInsets.symmetric(horizontal: 16),
+                           child: CustomPaymentButton(isVisaMethod: isVisaMethod, totalPrice: provider.totalCartPrice + 20),),
+                       ),
+                       SizedBox(height: 16,),
 
-                    ],
-                  );
-                });
+                     ],
+                   );
+                 });
+
+           }
           },
-
-          //     () {
-          //   Navigator.push(context, MaterialPageRoute(builder: (context) => const MyCartView()));
-          // },
           text: "Checkout",
           width: 310,
           height: 48,

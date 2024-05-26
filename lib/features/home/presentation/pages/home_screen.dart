@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/core/utils/assets.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
@@ -7,6 +9,7 @@ import 'package:farmacy_app/features/home/presentation/pages/taps/profile_tap.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/utils/widgets/custom_app_bar.dart';
@@ -31,11 +34,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider =   Provider.of<HomeProvider>(context, listen: false);
     if(currentIndex == 0) {
-      Provider.of<HomeProvider>(context, listen: false).getAllCategories();
+      provider.getAllCategories();
+      log(" home cartItems ${provider.cartItems.length}");
+      if(Provider.of<HomeProvider>(context, listen: false).cartItems.isEmpty) {
+        log(" home allAddedItemsToCartWithCartIdList ${provider.allAddedItemsToCartWithMedicineIdList.length}");
+        provider.allAddedItemsToCartWithMedicineIdList.clear();
+        provider.allAddedItemsToCartWithCartIdList.clear();
+
+        log(" home allAddedItemsToCartWithCartIdList2 ${provider.allAddedItemsToCartWithCartIdList.length}");
+
+      }
     }
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: currentIndex == 2 ? AppBar(
+        backgroundColor: AppStyles.secondaryColor,
+        title: Text("Profile",style: AppStyles.bold25(context).copyWith(color: Colors.white),),
+        actions: [IconButton(onPressed: (){}, icon:Icon(FontAwesomeIcons.edit, color: Colors.white,size: 21,))],
+      ) :CustomAppBar(
         onPressed: () {},
       ),
       body: screens[currentIndex],

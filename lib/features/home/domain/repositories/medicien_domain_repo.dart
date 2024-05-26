@@ -14,4 +14,7 @@ abstract class MedicineDomainRepo {
 
   Future<Either<FailureError, Map<String, dynamic>>>
       updateMedicineInSpecificCategory({required MedicineBody medicineBody});
+
+  Future<Either<FailureError, Map<String, dynamic>>>
+      deleteMedicineInSpecificCategory({required String medicineId});
 }

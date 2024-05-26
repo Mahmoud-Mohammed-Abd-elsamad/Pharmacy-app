@@ -43,7 +43,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                     setState(() {});
                     widget.updatePaymentMethod(index: activeIndex);
                   },
-                      child:  PaymentMethodItem(isActive: activeIndex == index, image: items[index].photo , text:items[index].name,));
+                      child:  PaymentMethodItem(isActive: activeIndex == index, image: items[index].image , text:items[index].name,));
                 })
             )
           ],

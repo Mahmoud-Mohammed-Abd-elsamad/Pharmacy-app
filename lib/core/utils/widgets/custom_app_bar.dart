@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget  implements PreferredSizeWidget {
       backgroundColor: AppStyles.secondaryColor,
       title: Row(
         children: [
-          Text("Dawaa’",style: AppStyles.regular20(context),),
+          Text("Pharmacy ’",style: AppStyles.regular20(context),),
           Padding(
             padding: const EdgeInsets.only(top: 8.0,left: 4),
             child: SvgPicture.asset(Assets.imagesAppBarIcon),

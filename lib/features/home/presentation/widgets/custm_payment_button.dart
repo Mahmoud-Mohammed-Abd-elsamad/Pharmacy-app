@@ -1,36 +1,60 @@
 import 'dart:developer';
 
 import 'package:farmacy_app/core/utils/app_styles.dart';
+import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/api_keys.dart';
 
-
 import '../../data/models/stripe_models/payment_intent_body.dart';
 import '../manager/payment_provider/payment_privideer.dart';
 import 'custom_button_tow.dart';
 
-class CustomPaymentButton extends StatelessWidget {
+class CustomPaymentButton extends StatefulWidget {
   const CustomPaymentButton({
     super.key,
-    required this.isVisaMethod, required this.totalPrice,
+    required this.isVisaMethod,
+    required this.totalPrice,
   });
 
   final bool isVisaMethod;
-  final int totalPrice ;
+  final int totalPrice;
 
   @override
+  State<CustomPaymentButton> createState() => _CustomPaymentButtonState();
+}
+
+class _CustomPaymentButtonState extends State<CustomPaymentButton> {
+  @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<PaymentProvider>(context, listen: false);
+    log("isVisaMethod the value was sent ${widget.isVisaMethod}");
+    var paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
+    var homeProvider = Provider.of<HomeProvider>(context, listen: true);
     return CustomButtonTow(
         onTap: () async {
-          if (isVisaMethod) {
-            await provider.makePayment(PaymentIntentBody(
-                amount: (2356*100).toString(), currency: "USD", customerId: ApiKys.customerId));
-            log("PaymentProvider FutureDelay ");
-            if (provider.isPaymentSuccess) {
-              log("PaymentProvider s ${provider.isPaymentSuccess} ");
+          if (widget.isVisaMethod) {
+            await paymentProvider.makePayment(PaymentIntentBody(
+                amount: (widget.totalPrice * 100).toString(),
+                currency: "USD",
+                customerId: ApiKys.customerId));
+            log("PaymentProvider FutureDelay ${paymentProvider.isPaymentSuccess} ");
+            if (paymentProvider.isPaymentSuccess) {
+              log("PaymentProvider FutureDelay2 ${paymentProvider.isPaymentSuccess} ");
+              log("PaymentProvider FutureDelay3 ${homeProvider.cartItems} ");
+              var list = homeProvider.cartItems.map((e) async {
+                log("PaymentProvider FutureDelay3 ${paymentProvider.isPaymentSuccess} ");
+
+                await homeProvider.deleteCartItem(e.cartItemId.toString());
+                homeProvider.cartItems.clear();
+                homeProvider.allAddedItemsToCartWithMedicineIdList.clear();
+                homeProvider.allAddedItemsToCartWithCartIdList.clear();
+              }).toList();
+              await homeProvider.getAllCartItemsByUserId(userId: "1");
+
+              log("allAddedItemsToCartWithCartIdList ${homeProvider.allAddedItemsToCartWithCartIdList.length} ");
+
+
               Navigator.of(context).pop();
 
               if (context.mounted) {
@@ -39,10 +63,11 @@ class CustomPaymentButton extends StatelessWidget {
                   content: Text("payment sucess"),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-              // show the dialog
+                setState(() {
+                  log("setSatete called ========================");
+;                });
+              } // show the dialog
             } else {
-              log("PaymentProvider f ${provider.isPaymentSuccess} ");
               Navigator.of(context).pop();
               var snackBar = const SnackBar(
                 content: Text("payment not completed"),

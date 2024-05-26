@@ -7,13 +7,14 @@ import 'package:farmacy_app/features/home/data/models/add_item_to_cart_body.dart
 
 import '../../../../core/error/failures.dart';
 import '../models/add_item_to_cart_model.dart';
+import '../models/get_all_cart_items_model.dart';
 import '../models/update_cart_item_model.dart';
 
 abstract class CartDataSource {
   Future<Either<FailureError, AddItemToCartModel>> addItemToCart(
       AddItemToCartBody addItemToCartBody);
 
-  Future<Either<FailureError, List<AddItemToCartModel>>> getAllCartItemsByUseID(
+  Future<Either<FailureError, List<MedicineCartModel>>> getAllCartItemsByUseID(
       String userID);
 
   Future<Either<FailureError, UpdateCartItemModel>> updateCartItem(
@@ -56,7 +57,7 @@ class RemoteCartDataSource extends CartDataSource {
   }
 
   @override
-  Future<Either<FailureError, List<AddItemToCartModel>>> getAllCartItemsByUseID(
+  Future<Either<FailureError, List<MedicineCartModel>>> getAllCartItemsByUseID(
       String userID) async {
     ApiServices apiServices = ApiServices();
 
@@ -72,8 +73,9 @@ class RemoteCartDataSource extends CartDataSource {
         log("getAllCartItemsByUseID  success ${response.statusCode}");
         List items = response.data;
         log("getAllCartItemsByUseID  success ${items.length}");
+        log("getAllCartItemsByUseID  success ${response.statusCode}");
 
-        return Right(items.map((e) => AddItemToCartModel.fromJson(e)).toList());
+        return Right(items.map((e) => MedicineCartModel.fromJson(e)).toList());
       } else {
         log("getAllCartItemsByUseID  failed ${response.statusCode}");
 

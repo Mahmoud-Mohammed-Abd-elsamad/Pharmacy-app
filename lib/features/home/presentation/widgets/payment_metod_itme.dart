@@ -20,19 +20,11 @@ class PaymentMethodItem extends StatelessWidget {
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           side: BorderSide(
-            width: 1.50,
+            width: 2.5,
             color: isActive ?  AppStyles.secondaryColor : Colors.grey,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
-        shadows: [
-          BoxShadow(
-            color:  Colors.white,
-            blurRadius: 4,
-            offset: const Offset(0, 0),
-            spreadRadius: 0,
-          )
-        ],
       ),
       duration: Duration(milliseconds: 800),
 

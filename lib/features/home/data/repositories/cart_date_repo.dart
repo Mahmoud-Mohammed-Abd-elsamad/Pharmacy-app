@@ -8,6 +8,7 @@ import 'package:farmacy_app/features/home/data/models/category_model.dart';
 import 'package:farmacy_app/features/home/domain/repositories/catetgories_domain_repo.dart';
 
 import '../../domain/repositories/cart_domain_repo.dart';
+import '../models/get_all_cart_items_model.dart';
 
 class CartDataRepo extends CartDomainRepo{
   CartDataRepo(this.cartDataSource);
@@ -19,7 +20,7 @@ class CartDataRepo extends CartDomainRepo{
   }
 
   @override
-  Future<Either<FailureError, List<AddItemToCartModel>>> getAllCartItemsByUseID(String userID) {
+  Future<Either<FailureError, List<MedicineCartModel>>> getAllCartItemsByUseID(String userID) {
 
    return  cartDataSource.getAllCartItemsByUseID(userID);
   }

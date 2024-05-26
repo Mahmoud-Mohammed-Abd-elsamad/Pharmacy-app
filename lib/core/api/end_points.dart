@@ -12,4 +12,6 @@ class EndPoints{
   static const String deleteCartItem = "/api/CartItems/";
   static const String createMedicine = "/api/Medicines/";
   static const String updateMedicine = "/api/Medicines/";
+  static const String deleteMedicine = "/api/Medicines/";
+  static const String getBranches = "/api/Branches/GetByCityAndState";
 }
