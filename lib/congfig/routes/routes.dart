@@ -1,5 +1,6 @@
 import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provider/register_provider.dart';
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
+import 'package:farmacy_app/features/chat_bot/chatpage/view/caht_bot_layout.dart';
 import 'package:farmacy_app/features/dash_board/presentation/pages/dash_baord_categories_screen.dart';
 import 'package:farmacy_app/features/dash_board/presentation/pages/dash_baord_cmedicines_screen.dart';
 import 'package:farmacy_app/features/forget_password_screen/presentation/manager/provider.dart';
@@ -36,6 +37,7 @@ class Routes {
   static const String homeScreen = "homeScreen";
   static const String paymentScreen = "paymentScreen";
   static const String dashBoardScreen = "dashBoardCategoriesScreen";
+  static const String chatBot = "chatBoatLayout";
 }
 
 class AppRouts {
@@ -109,7 +111,10 @@ class AppRouts {
           },
           child: const DashBoardCategoriesScreen());
         });
-
+      case Routes.chatBot:
+        return MaterialPageRoute(builder: (context) {
+          return ChatBotLayout();
+        });
 
 
       default:

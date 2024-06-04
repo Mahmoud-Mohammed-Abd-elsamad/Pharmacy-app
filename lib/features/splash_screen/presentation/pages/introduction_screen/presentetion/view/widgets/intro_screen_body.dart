@@ -51,7 +51,7 @@ class IntroScreenBody extends StatelessWidget {
         ),
       ],
       onDone: () => {
-        Navigator.pushNamed(context, Routes.splashScreen),
+        Navigator.pushNamed(context, Routes.loginScreen),
       },
       done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       showSkipButton: true,

@@ -40,6 +40,8 @@ class HomeProvider extends ChangeNotifier {
   bool getCategoriesLoading = false;
   bool getCategoriesSuccess = false;
   bool getMedicinesSuccess = false;
+  bool isFABExtended = false;
+
   bool addToCartSuccess = false;
   bool getAllCartItemsSuccess = false;
   bool createMedicineSuccess = false;
@@ -289,5 +291,12 @@ class HomeProvider extends ChangeNotifier {
     } else {
       print('No image selected.');
     }
+  }
+
+  void floatingActionButtonAction()
+  {
+
+    isFABExtended = !isFABExtended;
+    notifyListeners();
   }
 }

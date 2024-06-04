@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:farmacy_app/congfig/routes/routes.dart';
 import 'package:farmacy_app/core/utils/app_styles.dart';
+import 'package:farmacy_app/core/utils/cach_helper.dart';
 import 'package:farmacy_app/core/utils/widgets/custom_button.dart';
 import 'package:farmacy_app/core/utils/widgets/push_snack_par.dart';
 import 'package:farmacy_app/features/login_screen/data/models/login_model.dart';
@@ -115,8 +116,11 @@ class LoginScreen extends StatelessWidget {
                     log("login success  g ${provider.loginSuccess}");
                     if (provider.loginSuccess && context.mounted) {
                       log("login success  enter ${provider.loginSuccess}");
+                      CachHelper.saveUserId(id: provider.userInfo.id.toString());
+                      CachHelper.saveIsAdmin(admin:provider.userInfo.isAdmin!);
                       FocusManager.instance.primaryFocus?.unfocus();
-                      provider.isAdmin
+                      log(">>>>>>>>>>>>>>>>>>>> is Admin ${CachHelper.getAdmin()}");// for close keyboard
+                      CachHelper.getAdmin() ?? false
                           ? Navigator.pushNamedAndRemoveUntil(
                               context, Routes.dashBoardScreen, (route) => false)
                           : Navigator.pushNamedAndRemoveUntil(

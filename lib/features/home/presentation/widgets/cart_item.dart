@@ -64,8 +64,9 @@ class _CartItemState extends State<CartItem> {
                 children: [
                   Flexible(
                     child: Text(
-                      widget.medicineCartModel.medicineName.toString().substring(0,12),
-                      overflow: TextOverflow.ellipsis,
+              widget.medicineCartModel.medicineName.toString().length>10?
+                      widget.medicineCartModel.medicineName.toString().substring(0,9):widget.medicineCartModel.medicineName.toString().substring(0,widget.medicineCartModel.medicineName.toString().length-1),
+                  //    overflow: TextOverflow.clip,
                       style: AppStyles.semiBold20(context)
                           .copyWith(color: Colors.black),
                     ),

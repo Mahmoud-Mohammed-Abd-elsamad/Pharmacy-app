@@ -38,11 +38,6 @@ class RemoteMedicineDataSource implements MedicineDataSource {
       var response = await apiServices.get(
           url: EndPoints.baseUrl + EndPoints.getMedicinesByCategoryId + id);
       if (response.statusCode == 200) {
-        log("getMedicinesByCategoryId ${response.statusCode}");
-        log("getMedicinesByCategoryId ${response.data}");
-        log("getMedicinesByCategoryId55>> ${response.data.length}");
-        // List<SelectedCategoryItemModel> itemList =  response.data.map((e) =>
-        // SelectedCategoryItemModel.fromJson(e)).toList();
 
         List itemList = response.data;
         log("created itemList  =  ${itemList.length}  items");
@@ -50,11 +45,9 @@ class RemoteMedicineDataSource implements MedicineDataSource {
             .map((e) => SelectedCategoryItemModel.fromJson(e))
             .toList());
       } else {
-        log("getMedicinesByCategoryId error1 ${response.statusCode}");
         return Left(FailureError(response.data.toString()));
       }
     } catch (e) {
-      log("getMedicinesByCategoryId error ${e.toString()}");
       return Left(FailureError(e.toString()));
     }
   }
@@ -62,11 +55,8 @@ class RemoteMedicineDataSource implements MedicineDataSource {
   @override
   Future<Either<FailureError, Map<String, dynamic>>>
   createMedicineInSpecificCategory({required MedicineBody medicineBody}) async {
-    log("createMedicineInSpecificCategory called");
     try {
       ApiServices apiServices = ApiServices();
-      log("createMedicine called  ${medicineBody.name} name >>>>>>>>>>>>>>>");
-      log("createMedicine called  ${medicineBody.photo} price>>>>>>>>>>>>>>>>>>.");
 
       FormData formData = FormData.fromMap({
         "name": medicineBody.name,
@@ -77,7 +67,6 @@ class RemoteMedicineDataSource implements MedicineDataSource {
         "Photo": await MultipartFile.fromFile(medicineBody.photo!.path,
             filename: 'image.jpg')
       });
-      log("createMedicine called  ${medicineBody.toJson()}");
 
       final Dio _dio = Dio();
 
@@ -86,92 +75,16 @@ class RemoteMedicineDataSource implements MedicineDataSource {
           options: Options(
             contentType: "multipart/form-dat",
           ));
-      log("createMedicine medcineNmae  ${medicineBody.name}");
-      log("createMedicine statusCode  ${result.statusCode}");
       if (result.statusCode == 200 || result.statusCode == 201) {
-        log( "${medicineBody.price}>>>>>>${medicineBody.medicineQuantity}#######################################################################################################");
-
         return Right(result.data);
       } else {
-        log("createMedicine statusCode Error  ${result.statusCode}");
-
         return Left(FailureError(result.data.toString()));
       }
     } catch (e) {
-      log("createMedicine already catch error  ${e.toString()}");
 
       return Left(FailureError(e.toString()));
     }
   }
-
-  @override
-  // Future<Either<FailureError, Map<String, dynamic>>>
-  // updateMedicineInSpecificCategory({required MedicineBody medicineBody}) async {
-  //   try {
-  //     log("updateMedicineInSpecificCategory called  data Source");
-  //     log("updateMedicineInSpecificCategory id  ${medicineBody.id}");
-  //
-  //     ApiServices apiServices = ApiServices();
-  //
-  //     FormData formData = FormData.fromMap({
-  //       "id": medicineBody.id,
-  //      "name": medicineBody.name,
-  //      "description": medicineBody.description,
-  //      "price": medicineBody.price,
-  //      "medicineQuantity": medicineBody.price,
-  //       "categoryId": medicineBody.categoryId,
-  //       // "Photo": await MultipartFile.fromFile(medicineBody.photo!.path,
-  //       //     filename: 'image.jpg')
-  //     });
-  //     log("updateMedicineInSpecificCategory called  data Source ${medicineBody.toJson()}");
-  //
-  //     final Dio _dio = Dio();
-  //
-  //     //
-  //     // var stream = await medicineBody.photo?.openRead();
-  //     //
-  //     // // Get the file length
-  //     // int length =  await medicineBody.photo!.length();
-  //     //
-  //     // // Create a MultipartFile
-  //     // var multipartFile = MultipartFile(
-  //     //     stream as Stream<List<int>>,
-  //     //     length,
-  //     //     filename:  medicineBody.photo?.path.split('/').last,
-  //     //     contentType: MediaType('image', 'jpeg')Z,);
-  //
-  //         var result = await _dio.put(EndPoints.baseUrl + EndPoints.updateCartItem,
-  //        // data: formData,
-  //
-  //         data: jsonEncode(medicineBody.toJson()),
-  //         options: Options(headers: {
-  //
-  //           'Content-Type': 'application/json',
-  //           "Content-Length": "multipart/form-data; boundary=<calculated when request is sent>",
-  //           "Host":"<calculated when request is sent>",
-  //           "User-Agent":"PostmanRuntime/7.39.0",
-  //           "Accept":"*/*",
-  //           "Accept-Encoding":"gzip, deflate, br",
-  //           "Connection":"keep-alive"
-  //         }
-  //         ));
-  //     log("updateMedicineInSpecificCategory medcineId : ${medicineBody.id}");
-  //     log("updateMedicineInSpecificCategory statusCode  ${result.statusCode}");
-  //
-  //     if (result.statusCode == 200 || result.statusCode == 201) {
-  //       return Right(result.data);
-  //     } else {
-  //       log("updateMedicineInSpecificCategory statusCode Error  ${result.statusCode}");
-  //
-  //       return Left(FailureError(result.data.toString()));
-  //     }
-  //   } catch (e) {
-  //     log("updateMedicineInSpecificCategory catch error  ${e.toString()}");
-  //
-  //     return Left(FailureError(e.toString()));
-  //   }
-  // }
-
 
   @override
   Future<Either<FailureError,
@@ -180,25 +93,19 @@ class RemoteMedicineDataSource implements MedicineDataSource {
     ApiServices apiServices = ApiServices();
 
     try {
-      log("deleteMedicineInSpecificCategory Data Source");
 
       var response = await apiServices.delete(
         url: EndPoints.baseUrl + EndPoints.deleteMedicine + medicineId,
       );
-      log("deleteMedicineInSpecificCategory ${response.statusCode}");
 
-      if (response.statusCode == 200) {
-        log("deleteMedicineInSpecificCategory  success ${response.statusCode}");
-        log("deleteMedicineInSpecificCategory  success ${response.data}");
+      if (response.statusCode == 200) {;
 
         return Right(response.data);
       } else {
-        log("deleteMedicineInSpecificCategory  failed ${response.statusCode}");
 
         return Left(FailureError(response.statusCode.toString()));
       }
     } catch (e) {
-      log("deleteMedicineInSpecificCategory  failed catch${e.toString()} ");
 
       return Left(FailureError(e.toString()));
     }

@@ -51,7 +51,6 @@ class _CartTapState extends State<CartTap> {
     super.initState();
   }
 
-  // List<AddItemToCartModel> items = [];
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<HomeProvider>(context, listen: true);

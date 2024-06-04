@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:farmacy_app/congfig/routes/routes.dart';
 import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/app_styles.dart';
+import '../../../../../core/utils/cach_helper.dart';
 import '../../../../../core/utils/widgets/custom_app_bar.dart';
 
 class MoreTap extends StatelessWidget {
@@ -158,8 +162,13 @@ class CustomLogoutItem extends StatelessWidget {
           children: [
             InkWell(
                 onTap: () {
+                  log(">>>before delete user id >>> ${CachHelper.getUserId()}");
+
+                  CachHelper.deleteUserId();
+                  log(">>> delete user id >>> ${CachHelper.getUserId()}");
+
                   Navigator.pushNamedAndRemoveUntil(
-                      context, Routes.splashScreen, (route) => false);
+                      context, Routes.loginScreen, (route) => false);
                 },
                 child: Transform.rotate(
                     angle: 1.5708 * 2,

@@ -64,7 +64,7 @@ class LocationScreenBody extends StatelessWidget {
                           child: Row(
                             children: [
                               Text("Pharmacy'",style: AppStyles.regular20(context).copyWith(color: AppStyles.secondaryColor),),
-                              SvgPicture.asset(Assets.appBarImage,height: 25,width: 25,)
+                              SvgPicture.asset(Assets.logo,height: 25,width: 25,)
                             ],
                           ),
                         ),

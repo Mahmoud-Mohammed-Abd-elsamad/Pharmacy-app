@@ -1,5 +1,6 @@
 import 'package:farmacy_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class slidingAinmateImage extends StatelessWidget {
   const slidingAinmateImage({
@@ -16,7 +17,7 @@ class slidingAinmateImage extends StatelessWidget {
         builder: (context, _) {
           return SlideTransition(
             position: slidingAnimation,
-            child: Image.asset(Assets.logo),
+            child: SvgPicture.asset(Assets.logo),
           );
         });
   }

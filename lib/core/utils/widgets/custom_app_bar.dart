@@ -1,8 +1,8 @@
+import 'package:farmacy_app/core/utils/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../generated/assets.dart';
 import '../app_styles.dart';
 
 class CustomAppBarA extends StatelessWidget implements PreferredSizeWidget {
@@ -44,14 +44,14 @@ class CustomAppBar extends StatelessWidget  implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.white, //change your color here
+      ),
       backgroundColor: AppStyles.secondaryColor,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Pharmacy ’",style: AppStyles.regular20(context),),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0,left: 4),
-            child: SvgPicture.asset(Assets.imagesAppBarIcon),
-          )
+          SvgPicture.asset(Assets.iconAppBarrLogo, height: 40,width: 10,)
         ],
       ),
       actions: [IconButton(onPressed:onPressed , icon: Icon(Icons.menu,color: Colors.white,))],

@@ -16,7 +16,6 @@ class StripeServices {
       {required PaymentIntentBody paymentIntentBody}) async {
     try {
       log("_createPaymentIntent call ");
-
       ApiServices apiServices = ApiServices();
       var result = await apiServices.post(
           url: "https://api.stripe.com/v1/payment_intents",
