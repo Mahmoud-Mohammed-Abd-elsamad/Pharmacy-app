@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:farmacy_app/features/RegisterScreen/presentation/manager/provider/register_provider.dart';
 import 'package:farmacy_app/features/RegisterScreen/presentation/pages/register_screen.dart';
 import 'package:farmacy_app/features/chat_bot/chatpage/view/caht_bot_layout.dart';
@@ -35,19 +37,18 @@ class Routes {
   static const String governorateScreen = "governorateScreen";
   static const String homeScreen = "homeScreen";
   static const String paymentScreen = "paymentScreen";
-  static const String dashBoardScreen = "dashBoardCategoriesScreen";
+  static const String dashBoardCategoriesScreen = "dashBoardCategoriesScreen";
+  static const String dashBoardMedicineScreen = "dashBoardMedicineScreen";
   static const String chatBot = "chatBoatLayout";
 }
 
 class AppRouts {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-
       case Routes.splashView:
         return MaterialPageRoute(builder: (context) {
           return const SplashView();
         });
-
 
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (context) {
@@ -56,18 +57,22 @@ class AppRouts {
 
       case Routes.locationScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(create: (BuildContext context) {
-            return LocationProvider(branchesDataSource: RemoteBranchesDataSource());
-          },
-          child: const LocationScreen());
+          return ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return LocationProvider(
+                    branchesDataSource: RemoteBranchesDataSource());
+              },
+              child: const LocationScreen());
         });
 
       case Routes.governorateScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(create: (BuildContext context) {
-            return LocationProvider(branchesDataSource: RemoteBranchesDataSource());
-          },
-          child: const GovernorateScreen());
+          return ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return LocationProvider(
+                    branchesDataSource: RemoteBranchesDataSource());
+              },
+              child: const GovernorateScreen());
         });
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (context) {
@@ -84,44 +89,64 @@ class AppRouts {
         });
       case Routes.forgetPasswordScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(create: (BuildContext context) {
-            return ForgetPasswordProvider(
-                forgetPasswordDataSource: RemoteForgetPasswordDataSource());
-          },
+          return ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return ForgetPasswordProvider(
+                    forgetPasswordDataSource: RemoteForgetPasswordDataSource());
+              },
               child: const ForgetPasswordScreen());
         });
 
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) {
           return MultiProvider(providers: [
-            ChangeNotifierProvider (create: (BuildContext context) {
-              return  HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(),
-                  medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
-            },),
-          ],
-          child: const HomeScreen());
+            ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return HomeProvider(
+                    categoriesDataSource: RemoteCategoriesDataSource(),
+                    medicineDataSource: RemoteMedicineDataSource(),
+                    cartDataSource: RemoteCartDataSource());
+              },
+            ),
+          ], child: const HomeScreen());
         });
 
-
-      case Routes.dashBoardScreen:
+      case Routes.dashBoardCategoriesScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(create: (BuildContext context) {
-            return HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource());
-          },
-          child: const DashBoardCategoriesScreen());
+          return ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return HomeProvider(
+                    categoriesDataSource: RemoteCategoriesDataSource(),
+                    medicineDataSource: RemoteMedicineDataSource(),
+                    cartDataSource: RemoteCartDataSource());
+              },
+              child: const DashBoardCategoriesScreen());
         });
+
+      case Routes.dashBoardMedicineScreen:
+        final Map<String, dynamic>? args =
+            settings.arguments as Map<String, dynamic>?;
+
+        log(">>>>>>>>> routes args ${args!["selectedCategory"].name}");
+        return MaterialPageRoute(builder: (context) {
+          return ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return HomeProvider(
+                    categoriesDataSource: RemoteCategoriesDataSource(),
+                    medicineDataSource: RemoteMedicineDataSource(),
+                    cartDataSource: RemoteCartDataSource());
+              },
+              child: const DashBoardMedicinesScreen());
+        },settings: RouteSettings(arguments: args));
       case Routes.chatBot:
         return MaterialPageRoute(builder: (context) {
           return ChatBotLayout();
         });
 
-
       default:
         return MaterialPageRoute(builder: (context) {
           return unDefindScreen();
         });
-
-
     }
   }
 

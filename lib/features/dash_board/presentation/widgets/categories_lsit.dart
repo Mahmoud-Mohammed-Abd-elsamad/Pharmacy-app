@@ -34,40 +34,17 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     await provider.getMedicinesByCategoryId(
                         items[index].categoryId.toString());
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChangeNotifierProvider(
-                                create: (BuildContext context) {
-                                  return HomeProvider(
-                                      categoriesDataSource:
-                                      RemoteCategoriesDataSource(),
-                                      medicineDataSource:
-                                      RemoteMedicineDataSource(),
-                                      cartDataSource: RemoteCartDataSource());
-                                },
-                                child: DashBoardMedicinesScreen(items: provider.medicines, selectedCategory: items[index],
-                                ))));
-
                     provider.selectedMedicineNameForDashBoard =
                         items[index].name!;
                     log("name >>>>>>>>>>>>>>> ${provider.getMedicinesSuccess}");
 
                     if (provider.getMedicinesSuccess && context.mounted) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangeNotifierProvider(
-                                  create: (BuildContext context) {
-                                    return HomeProvider(
-                                        categoriesDataSource:
-                                            RemoteCategoriesDataSource(),
-                                        medicineDataSource:
-                                            RemoteMedicineDataSource(),
-                                        cartDataSource: RemoteCartDataSource());
-                                  },
-                                  child: DashBoardMedicinesScreen(items: provider.medicines, selectedCategory: items[index],
-                                  ))));
+                      // items: provider.medicines, selectedCategory: items[index]
+                      Navigator.pushNamed(context, Routes.dashBoardMedicineScreen,arguments: {
+                        "items": provider.medicines,
+                        "selectedCategory": items[index]
+                      });
+//////////////////////////////
                     }
                   },
                   child: AspectRatio(
@@ -90,6 +67,4 @@ class CategoriesList extends StatelessWidget {
               );
             });
   }
-
-
 }

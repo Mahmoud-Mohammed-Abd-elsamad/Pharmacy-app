@@ -123,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                       log(">>>>>>>>>>>>>>>>>>>> is Admin ${CachHelper.getAdmin()}");// for close keyboard
                       CachHelper.getAdmin() ?? false
                           ? Navigator.pushNamedAndRemoveUntil(
-                              context, Routes.dashBoardScreen, (route) => false)
+                              context, Routes.dashBoardCategoriesScreen, (route) => false)
                           : Navigator.pushNamedAndRemoveUntil(
                               context, Routes.locationScreen, (route) => false);
                       SnackBarClass.pushSnackPar(context,

@@ -18,20 +18,35 @@ import '../widgets/custom_circle_button.dart';
 
 class DashBoardMedicinesScreen extends StatelessWidget {
   const DashBoardMedicinesScreen(
-      {super.key, required this.items, required this.selectedCategory});
+      {super.key,});
 
-  final List<SelectedCategoryItemModel> items;
 
-  final CategoryModel selectedCategory;
+  // final List<SelectedCategoryItemModel> items;
+  //
+  // final CategoryModel selectedCategory;
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic>? receiveData =
+    ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     var provider = Provider.of<HomeProvider>(context);
+
+    if(receiveData == null){
+      return Scaffold(
+        body: Center(
+          child: Container(
+            child: Text("Error"),
+          ),
+        )
+      );
+    }
+    final CategoryModel selectedCategory = receiveData["selectedCategory"];
+    final List<SelectedCategoryItemModel> items = receiveData["items"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          selectedCategory.name ?? "",
+          receiveData["selectedCategory"].name ?? "",
           style: AppStyles.semiBold20(context)
               .copyWith(color: const Color(0xff5C6E77)),
         ),

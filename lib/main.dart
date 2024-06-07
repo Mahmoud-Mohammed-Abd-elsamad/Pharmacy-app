@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
     }else{
       log(">>>>>>>>> getUserId ${CachHelper.getUserId()}");
       if(CachHelper.getAdmin() != null && CachHelper.getAdmin() == true){
-        initialRoute = Routes.dashBoardScreen;
+        initialRoute = Routes.dashBoardCategoriesScreen;
         log(">>>>>>>>> is Admin true ");
       } else{
         log(">>>>>>>>> is Admin false ");
