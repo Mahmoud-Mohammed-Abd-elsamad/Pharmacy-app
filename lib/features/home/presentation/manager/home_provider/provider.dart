@@ -2,18 +2,23 @@ import 'dart:developer';
 import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
+import 'package:farmacy_app/features/home/data/data_sources/profile_data_source.dart';
 import 'package:farmacy_app/features/home/data/models/add_item_to_cart_model.dart';
 import 'package:farmacy_app/features/home/data/models/category_model.dart';
 import 'package:farmacy_app/features/home/data/models/item_model.dart';
 import 'package:farmacy_app/features/home/data/models/update_cart_item_model.dart';
+import 'package:farmacy_app/features/home/data/models/user_info.dart';
 import 'package:farmacy_app/features/home/data/repositories/cart_date_repo.dart';
 import 'package:farmacy_app/features/home/data/repositories/categories_date_repo.dart';
 import 'package:farmacy_app/features/home/data/repositories/medicien_date_repo.dart';
+import 'package:farmacy_app/features/home/data/repositories/profiel_data_repo.dart';
 import 'package:farmacy_app/features/home/domain/repositories/catetgories_domain_repo.dart';
 import 'package:farmacy_app/features/home/domain/repositories/medicien_domain_repo.dart';
+import 'package:farmacy_app/features/home/domain/repositories/profiel_domain_repo.dart';
 import 'package:farmacy_app/features/home/domain/use_cases/cart_use_case.dart';
 import 'package:farmacy_app/features/home/domain/use_cases/categories_use_case.dart';
 import 'package:farmacy_app/features/home/domain/use_cases/medicine_use_case.dart';
+import 'package:farmacy_app/features/home/domain/use_cases/profile_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -26,9 +31,10 @@ class HomeProvider extends ChangeNotifier {
   final CategoriesDataSource categoriesDataSource;
   final MedicineDataSource medicineDataSource;
   final CartDataSource cartDataSource;
+  final ProfileDataSource profileDataSource;
 
-  HomeProvider(
-      {required this.categoriesDataSource,
+  HomeProvider({required this.profileDataSource,
+      required this.categoriesDataSource,
       required this.medicineDataSource,
       required this.cartDataSource});
 
@@ -53,6 +59,7 @@ class HomeProvider extends ChangeNotifier {
   AddItemToCartModel? addItemToCartModel;
   String selectedMedicineNameForDashBoard = "";
   XFile? pickedImage;
+  UserInfo? userInfo;
 
   Future getAllCategories() async {
     log("getAllCategories called ========================");
@@ -261,6 +268,33 @@ class HomeProvider extends ChangeNotifier {
       log("deleteCartItem success ========================");
     });
   }
+
+  Future getProfileData({required String id}) async {
+    log("getProfileData called ========================");
+   // getCategoriesLoading = true;
+
+    ProfileDomainRepo profileDomainRepo = ProfileDataRepo(profiledDataSource: profileDataSource);
+    ProfileUseCase useCase =
+    ProfileUseCase(profileDomainRepo: profileDomainRepo);
+
+    var result = await useCase.getProfileData(id: id);
+    print(" get user profile provider " + result.toString());
+
+    result.fold((l) {
+      // getCategoriesLoading = false;
+      // getCategoriesSuccess = false;
+      log("getProfileData Failed  ========${l.message}================");
+      notifyListeners();
+    }, (r) {
+      userInfo = r;
+      log( "getProfileData Success  ========${r.toString()}================");
+      // categories = r;
+      // getCategoriesLoading = false;
+      // getCategoriesSuccess = true;
+      notifyListeners();
+    });
+  }
+
 
   Future<void> pickImageFromGallery() async {
     Map<Permission, PermissionStatus> statuses = await [

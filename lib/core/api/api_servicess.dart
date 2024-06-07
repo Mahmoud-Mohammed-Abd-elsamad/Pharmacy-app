@@ -11,6 +11,10 @@ class ApiServices {
     Response response = await _dio.get(url);
     return response;
   }
+  Future<Response> getWithBody({required String url,required Map<String, dynamic> data,required String token}) async {
+    Response response = await _dio.get(url,data:data,options: Options(headers: {"Authorization": "Bearer $token"}));
+    return response;
+  }
   Future<Response> post(
       {required String url,
       required Map<String, dynamic> data,

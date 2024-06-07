@@ -14,4 +14,5 @@ class EndPoints{
   static const String updateMedicine = "/api/Medicines/";
   static const String deleteMedicine = "/api/Medicines/";
   static const String getBranches = "/api/Branches/GetByCityAndState";
+  static const String profile = "/users/get-by-id";
 }

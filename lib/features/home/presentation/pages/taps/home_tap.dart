@@ -48,8 +48,6 @@ class _HomeTapState extends State<HomeTap> {
   @override
   Widget build(BuildContext context) {
     print("selectedCategory $selectedCategory  >>");
-    print(
-        "selectedCategory ${Provider.of<LoginProvider>(context).userInfo.fullName}  >>");
 
     return selectedCategory
         ? SelectedCategoryContent(

@@ -7,6 +7,7 @@ import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
+import 'package:farmacy_app/features/home/data/data_sources/profile_data_source.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:farmacy_app/features/login_screen/data/data_sources/login_user_data_source.dart';
 import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
@@ -64,9 +65,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource()),
-        ),ChangeNotifierProvider(
-          create: (context) => LoginProvider(loginUserDataSource: RemoteLoginUserDataSource())
+          create: (context) => HomeProvider(categoriesDataSource: RemoteCategoriesDataSource(), medicineDataSource: RemoteMedicineDataSource(), cartDataSource: RemoteCartDataSource(), profileDataSource: RemoteProfileDataSource()),
         ),
       ],
       child: MaterialApp(

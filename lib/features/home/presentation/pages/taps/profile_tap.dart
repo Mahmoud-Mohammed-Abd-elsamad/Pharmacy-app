@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:farmacy_app/congfig/routes/routes.dart';
+import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:farmacy_app/features/login_screen/presentation/manager/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,12 @@ import '../../../../../core/utils/app_styles.dart';
 import '../../../../../core/utils/cach_helper.dart';
 import '../../../../../core/utils/widgets/custom_app_bar.dart';
 
-class MoreTap extends StatelessWidget {
-  const MoreTap({super.key});
+class ProfielTap extends StatelessWidget {
+  const ProfielTap({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<LoginProvider>(context);
+    var provider = Provider.of<HomeProvider>(context);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -52,19 +53,19 @@ class MoreTap extends StatelessWidget {
               children: [
                 CustomItem(
                   icon: Icons.person,
-                  text: provider.userInfo.fullName ?? " null ",
+                  text: provider.userInfo?.fullName ?? " null ",
                   onTapIcon: () {},
                   topLeftRadius: 15,
                   topRightRadius: 15,
                 ),
                 CustomItem(
                   icon: Icons.email_outlined,
-                  text: provider.userInfo.email ?? " null ",
+                  text: provider.userInfo?.email ?? " null ",
                   onTapIcon: () {},
                 ),
                 CustomItem(
                   icon: Icons.phone,
-                  text: provider.userInfo.phoneNumber.toString() ?? " null ",
+                  text: provider.userInfo?.phoneNumber.toString() ?? " null ",
                   onTapIcon: () {},
                 ),
                 CustomItem(

@@ -13,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../congfig/routes/routes.dart';
+import '../../../../core/utils/cach_helper.dart';
 import '../../../../core/utils/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List screens = [
     HomeTap(),
     const CartTap(),
-    const MoreTap(),
+    const ProfielTap(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
         log(" home allAddedItemsToCartWithCartIdList2 ${provider
             .allAddedItemsToCartWithCartIdList.length}");
       }
+    }if (provider.userInfo == null) {
+      provider.getProfileData(id: CachHelper.getUserId()!);
+      log("getProfileData called ======================== home");
+
     }
     return Scaffold(
       appBar: currentIndex == 2 ? AppBar(

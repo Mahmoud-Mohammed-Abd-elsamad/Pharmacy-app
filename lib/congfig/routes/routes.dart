@@ -76,7 +76,10 @@ class AppRouts {
         });
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (context) {
-          return LoginScreen();
+          return ChangeNotifierProvider(create: (BuildContext context) {
+            return LoginProvider(loginUserDataSource: RemoteLoginUserDataSource());
+          },
+          child: LoginScreen());
         });
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (context) {
@@ -98,29 +101,11 @@ class AppRouts {
         });
 
       case Routes.homeScreen:
-        return MaterialPageRoute(builder: (context) {
-          return MultiProvider(providers: [
-            ChangeNotifierProvider(
-              create: (BuildContext context) {
-                return HomeProvider(
-                    categoriesDataSource: RemoteCategoriesDataSource(),
-                    medicineDataSource: RemoteMedicineDataSource(),
-                    cartDataSource: RemoteCartDataSource());
-              },
-            ),
-          ], child: const HomeScreen());
-        });
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
 
       case Routes.dashBoardCategoriesScreen:
         return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(
-              create: (BuildContext context) {
-                return HomeProvider(
-                    categoriesDataSource: RemoteCategoriesDataSource(),
-                    medicineDataSource: RemoteMedicineDataSource(),
-                    cartDataSource: RemoteCartDataSource());
-              },
-              child: const DashBoardCategoriesScreen());
+          return const DashBoardCategoriesScreen();
         });
 
       case Routes.dashBoardMedicineScreen:
@@ -128,16 +113,11 @@ class AppRouts {
             settings.arguments as Map<String, dynamic>?;
 
         log(">>>>>>>>> routes args ${args!["selectedCategory"].name}");
-        return MaterialPageRoute(builder: (context) {
-          return ChangeNotifierProvider(
-              create: (BuildContext context) {
-                return HomeProvider(
-                    categoriesDataSource: RemoteCategoriesDataSource(),
-                    medicineDataSource: RemoteMedicineDataSource(),
-                    cartDataSource: RemoteCartDataSource());
-              },
-              child: const DashBoardMedicinesScreen());
-        },settings: RouteSettings(arguments: args));
+        return MaterialPageRoute(
+            builder: (context) {
+              return const DashBoardMedicinesScreen();
+            },
+            settings: RouteSettings(arguments: args));
       case Routes.chatBot:
         return MaterialPageRoute(builder: (context) {
           return ChatBotLayout();
