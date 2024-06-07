@@ -17,7 +17,6 @@ import 'package:farmacy_app/features/splash_screen/presentation/pages/splash_scr
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../features/RegisterScreen/data/data_sources/register_data_source.dart';
 import '../../features/forget_password_screen/data/data_sources/forget_passord_data_sources.dart';
 import '../../features/home/presentation/pages/home_screen.dart';

@@ -1,14 +1,13 @@
 import 'dart:developer';
 
-import 'package:farmacy_app/core/api/api_servicess.dart';
 import 'package:farmacy_app/core/utils/app_styles.dart';
 import 'package:farmacy_app/core/utils/widgets/push_snack_par.dart';
 import 'package:farmacy_app/features/home/presentation/manager/home_provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../congfig/routes/routes.dart';
+import '../../../../core/utils/cach_helper.dart';
 import '../../../home/data/models/category_model.dart';
 import '../../../home/data/models/item_model.dart';
 import '../../../home/data/models/medicine_body.dart';
@@ -97,7 +96,11 @@ class DashBoardMedicinesScreen extends StatelessWidget {
               onTap: () {
                 log("logg icon called");
                 log("logg icon called");
+
                 ShowAlertDialog.showLogoutAlertDialog(context, onPressed: (){
+                  CachHelper.deleteAdmin();
+                  CachHelper.deleteUserId();
+                  log("logg yes called");
                   Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
                 });
               },

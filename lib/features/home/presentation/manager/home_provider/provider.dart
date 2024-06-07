@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:farmacy_app/features/home/data/data_sources/cart_data_source.dart';
-
 import 'package:farmacy_app/features/home/data/data_sources/categories_data_source.dart';
 import 'package:farmacy_app/features/home/data/data_sources/medicien_data_source.dart';
 import 'package:farmacy_app/features/home/data/models/add_item_to_cart_model.dart';
@@ -19,7 +17,6 @@ import 'package:farmacy_app/features/home/domain/use_cases/medicine_use_case.dar
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../../data/models/add_item_to_cart_body.dart';
 import '../../../data/models/get_all_cart_items_model.dart';
 import '../../../data/models/medicine_body.dart';
@@ -41,7 +38,6 @@ class HomeProvider extends ChangeNotifier {
   bool getCategoriesSuccess = false;
   bool getMedicinesSuccess = false;
   bool isFABExtended = false;
-
   bool addToCartSuccess = false;
   bool getAllCartItemsSuccess = false;
   bool createMedicineSuccess = false;
@@ -299,4 +295,5 @@ class HomeProvider extends ChangeNotifier {
     isFABExtended = !isFABExtended;
     notifyListeners();
   }
+
 }

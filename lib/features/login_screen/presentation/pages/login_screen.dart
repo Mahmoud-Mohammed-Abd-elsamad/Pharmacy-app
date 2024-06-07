@@ -118,6 +118,7 @@ class LoginScreen extends StatelessWidget {
                       log("login success  enter ${provider.loginSuccess}");
                       CachHelper.saveUserId(id: provider.userInfo.id.toString());
                       CachHelper.saveIsAdmin(admin:provider.userInfo.isAdmin!);
+                      CachHelper.saveToken(token: provider.userInfo.token!);
                       FocusManager.instance.primaryFocus?.unfocus();
                       log(">>>>>>>>>>>>>>>>>>>> is Admin ${CachHelper.getAdmin()}");// for close keyboard
                       CachHelper.getAdmin() ?? false

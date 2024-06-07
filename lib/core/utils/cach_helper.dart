@@ -7,11 +7,13 @@ class CachHelper {
 
   static  late dynamic userId ;
   static  late dynamic isAdmin ;
+  static  late dynamic token ;
 
   static init() async{
     userId  = await Hive.openBox('userId');
     isAdmin  = await Hive.openBox('admin');
-    log(" >>>>> >>>> init  userId ");
+    token  = await Hive.openBox('token');
+    log(" >>>>> >>>> init  called ");
 
   }
 
@@ -29,13 +31,15 @@ class CachHelper {
   }
 
   static deleteUserId() {
+    log(" >>>>> >>>> admin delete user id");
+
     userId.delete('userId');
   }
 
 
   static saveIsAdmin({required bool admin}) async {
 
-    await userId.put('admin', admin);
+     userId.put('admin', admin);
     log(" >>>>> >>>> admin saved  $admin");
   }
 
@@ -45,7 +49,25 @@ class CachHelper {
 
   }
 
-  static deleteAmin() {
+  static deleteAdmin()async {
+    log(" >>>>> >>>> delete admin   ");
     isAdmin.delete('admin');
   }
+  static saveToken({required String token}) async {
+
+    userId.put('token', token);
+    log(" >>>>> >>>> admin saved  $token");
+  }
+
+  static String? getToken()  {
+    log(" >>>>> >>>> get token   ");
+    return userId.get('token');
+
+  }
+
+  static deleteToken()async {
+    log(" >>>>> >>>> delete token   ");
+    isAdmin.delete('token');
+  }
+
 }

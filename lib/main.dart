@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
 
         debugShowCheckedModeBanner: false,
         initialRoute: initialRoute,
-        onGenerateRoute: (settings) => AppRouts.onGenerateRoute(settings),
+        onGenerateRoute:  (settings) => AppRouts.onGenerateRoute(settings),
       ),
     );
   }
